@@ -14,20 +14,47 @@ public class Flight {
     private double travelTimeHours;
     private LocalDate timeDeparture;
     private LocalDate timeArrival;
+    private boolean withReturnTicket;
+    private LocalDate returnTimeDeparture;
+    private LocalDate returnTimeArrival;
     private int numberOfPassenger;
     private double totalPrice;
 
-    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDate timeDeparture, LocalDate timeArrival, double totalPrice) {
+    public Flight(int id, Country destination, List<Customer> customers, double travelTimeHours, LocalDate timeDeparture, LocalDate timeArrival, boolean withReturnTicket, LocalDate returnTimeDeparture, LocalDate returnTimeArrival, int numberOfPassenger, double totalPrice) {
+        this.id = id;
         this.destination = destination;
         this.customers = customers;
         this.travelTimeHours = travelTimeHours;
         this.timeDeparture = timeDeparture;
         this.timeArrival = timeArrival;
-        this.numberOfPassenger = this.customers.size();
+        this.withReturnTicket = withReturnTicket;
+        this.returnTimeDeparture = returnTimeDeparture;
+        this.returnTimeArrival = returnTimeArrival;
+        this.numberOfPassenger = numberOfPassenger;
+        this.totalPrice = totalPrice;
+    }
+
+    public Flight(int id, Country destination, List<Customer> customers, double travelTimeHours, LocalDate timeDeparture, LocalDate timeArrival, boolean withReturnTicket, int numberOfPassenger, double totalPrice) {
+        this.id = id;
+        this.destination = destination;
+        this.customers = customers;
+        this.travelTimeHours = travelTimeHours;
+        this.timeDeparture = timeDeparture;
+        this.timeArrival = timeArrival;
+        this.withReturnTicket = withReturnTicket;
+        this.numberOfPassenger = numberOfPassenger;
         this.totalPrice = totalPrice;
     }
 
     public Flight() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Country getDestination() {
@@ -70,12 +97,36 @@ public class Flight {
         this.timeArrival = timeArrival;
     }
 
+    public boolean isWithReturnTicket() {
+        return withReturnTicket;
+    }
+
+    public void setWithReturnTicket(boolean withReturnTicket) {
+        this.withReturnTicket = withReturnTicket;
+    }
+
+    public LocalDate getReturnTimeDeparture() {
+        return returnTimeDeparture;
+    }
+
+    public void setReturnTimeDeparture(LocalDate returnTimeDeparture) {
+        this.returnTimeDeparture = returnTimeDeparture;
+    }
+
+    public LocalDate getReturnTimeArrival() {
+        return returnTimeArrival;
+    }
+
+    public void setReturnTimeArrival(LocalDate returnTimeArrival) {
+        this.returnTimeArrival = returnTimeArrival;
+    }
+
     public int getNumberOfPassenger() {
         return numberOfPassenger;
     }
 
     public void setNumberOfPassenger(int numberOfPassenger) {
-        this.numberOfPassenger = this.customers.size();
+        this.numberOfPassenger = numberOfPassenger;
     }
 
     public double getTotalPrice() {
@@ -91,22 +142,26 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Double.compare(flight.travelTimeHours, travelTimeHours) == 0 && numberOfPassenger == flight.numberOfPassenger && Double.compare(flight.totalPrice, totalPrice) == 0 && Objects.equals(destination, flight.destination) && Objects.equals(customers, flight.customers) && Objects.equals(timeDeparture, flight.timeDeparture) && Objects.equals(timeArrival, flight.timeArrival);
+        return id == flight.id && Double.compare(flight.travelTimeHours, travelTimeHours) == 0 && withReturnTicket == flight.withReturnTicket && numberOfPassenger == flight.numberOfPassenger && Double.compare(flight.totalPrice, totalPrice) == 0 && Objects.equals(destination, flight.destination) && Objects.equals(customers, flight.customers) && Objects.equals(timeDeparture, flight.timeDeparture) && Objects.equals(timeArrival, flight.timeArrival) && Objects.equals(returnTimeDeparture, flight.returnTimeDeparture) && Objects.equals(returnTimeArrival, flight.returnTimeArrival);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destination, customers, travelTimeHours, timeDeparture, timeArrival, numberOfPassenger, totalPrice);
+        return Objects.hash(id, destination, customers, travelTimeHours, timeDeparture, timeArrival, withReturnTicket, returnTimeDeparture, returnTimeArrival, numberOfPassenger, totalPrice);
     }
 
     @Override
     public String toString() {
         return "Flight{" +
-                "destination=" + destination +
+                "id=" + id +
+                ", destination=" + destination +
                 ", customers=" + customers +
                 ", travelTimeHours=" + travelTimeHours +
                 ", timeDeparture=" + timeDeparture +
                 ", timeArrival=" + timeArrival +
+                ", withReturnTicket=" + withReturnTicket +
+                ", returnTimeDeparture=" + returnTimeDeparture +
+                ", returnTimeArrival=" + returnTimeArrival +
                 ", numberOfPassenger=" + numberOfPassenger +
                 ", totalPrice=" + totalPrice +
                 '}';
