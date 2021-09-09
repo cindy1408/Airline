@@ -20,6 +20,17 @@ public class Customer {
         this.passport = passport;
     }
 
+    //Constructor without age
+
+    public Customer(int id, String firstName, String lastName, LocalDate dob,String passport) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.passport = passport;
+
+    }
+
     public Customer() {
     }
 

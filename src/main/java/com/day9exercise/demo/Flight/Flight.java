@@ -1,9 +1,10 @@
 package com.day9exercise.demo.Flight;
 
 import com.day9exercise.demo.Country.Country;
-import com.day9exercise.demo.Customer;
+import com.day9exercise.demo.Customer.Customer;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,28 +15,38 @@ public class Flight {
     private double travelTimeHours;
     private LocalDateTime timeDeparture;
     private LocalDateTime timeArrival;
+    private boolean withReturnTicket;
+    private LocalTime returnTimeDeparture;
+    private LocalTime returnTimeArrival;
     private int numberOfPassenger;
     private double totalPrice;
     private String flightNumber;
 
-    public Flight(Country origin, Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, double totalPrice, String flightNumber) {
+    public Flight(Country origin, Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival,boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
         this.origin = origin;
         this.destination = destination;
         this.customers = customers;
         this.travelTimeHours = travelTimeHours;
         this.timeDeparture = timeDeparture;
         this.timeArrival = timeArrival;
+        this.withReturnTicket = withReturnTicket;
+        this.returnTimeDeparture = returnTimeDeparture;
+        this.returnTimeArrival = returnTimeArrival;
         this.numberOfPassenger = this.customers.size();
         this.totalPrice = totalPrice;
         this.flightNumber = flightNumber;
+
     }
     // Constructor without the origin country
-    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, double totalPrice, String flightNumber) {
+    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival,boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
         this.destination = destination;
         this.customers = customers;
         this.travelTimeHours = travelTimeHours;
         this.timeDeparture = timeDeparture;
         this.timeArrival = timeArrival;
+        this.withReturnTicket = withReturnTicket;
+        this.returnTimeDeparture = returnTimeDeparture;
+        this.returnTimeArrival = returnTimeArrival;
         this.numberOfPassenger = this.customers.size();
         this.totalPrice = totalPrice;
         this.flightNumber = flightNumber;
@@ -93,6 +104,30 @@ public class Flight {
         this.timeArrival = timeArrival;
     }
 
+    public boolean isWithReturnTicket() {
+        return withReturnTicket;
+    }
+
+    public void setWithReturnTicket(boolean withReturnTicket) {
+        this.withReturnTicket = withReturnTicket;
+    }
+
+    public LocalTime getReturnTimeDeparture() {
+        return returnTimeDeparture;
+    }
+
+    public void setReturnTimeDeparture(LocalTime returnTimeDeparture) {
+        this.returnTimeDeparture = returnTimeDeparture;
+    }
+
+    public LocalTime getReturnTimeArrival() {
+        return returnTimeArrival;
+    }
+
+    public void setReturnTimeArrival(LocalTime returnTimeArrival) {
+        this.returnTimeArrival = returnTimeArrival;
+    }
+
     public int getNumberOfPassenger() {
         return numberOfPassenger;
     }
@@ -122,12 +157,12 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Double.compare(flight.getTravelTimeHours(), getTravelTimeHours()) == 0 && getNumberOfPassenger() == flight.getNumberOfPassenger() && Double.compare(flight.getTotalPrice(), getTotalPrice()) == 0 && Objects.equals(getOrigin(), flight.getOrigin()) && Objects.equals(getDestination(), flight.getDestination()) && Objects.equals(getCustomers(), flight.getCustomers()) && Objects.equals(getTimeDeparture(), flight.getTimeDeparture()) && Objects.equals(getTimeArrival(), flight.getTimeArrival()) && Objects.equals(getFlightNumber(), flight.getFlightNumber());
+        return Double.compare(flight.getTravelTimeHours(), getTravelTimeHours()) == 0 && isWithReturnTicket() == flight.isWithReturnTicket() && getNumberOfPassenger() == flight.getNumberOfPassenger() && Double.compare(flight.getTotalPrice(), getTotalPrice()) == 0 && Objects.equals(getOrigin(), flight.getOrigin()) && Objects.equals(getDestination(), flight.getDestination()) && Objects.equals(getCustomers(), flight.getCustomers()) && Objects.equals(getTimeDeparture(), flight.getTimeDeparture()) && Objects.equals(getTimeArrival(), flight.getTimeArrival()) && Objects.equals(getReturnTimeDeparture(), flight.getReturnTimeDeparture()) && Objects.equals(getReturnTimeArrival(), flight.getReturnTimeArrival()) && Objects.equals(getFlightNumber(), flight.getFlightNumber());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrigin(), getDestination(), getCustomers(), getTravelTimeHours(), getTimeDeparture(), getTimeArrival(), getNumberOfPassenger(), getTotalPrice(), getFlightNumber());
+        return Objects.hash(getOrigin(), getDestination(), getCustomers(), getTravelTimeHours(), getTimeDeparture(), getTimeArrival(), isWithReturnTicket(), getReturnTimeDeparture(), getReturnTimeArrival(), getNumberOfPassenger(), getTotalPrice(), getFlightNumber());
     }
 
     @Override
@@ -139,6 +174,9 @@ public class Flight {
                 ", travelTimeHours=" + travelTimeHours +
                 ", timeDeparture=" + timeDeparture +
                 ", timeArrival=" + timeArrival +
+                ", withReturnTicket=" + withReturnTicket +
+                ", returnTimeDeparture=" + returnTimeDeparture +
+                ", returnTimeArrival=" + returnTimeArrival +
                 ", numberOfPassenger=" + numberOfPassenger +
                 ", totalPrice=" + totalPrice +
                 ", flightNumber='" + flightNumber + '\'' +
