@@ -1,4 +1,4 @@
-package com.day9exercise.demo;
+package com.day9exercise.demo.Customer;
 
 import java.time.LocalDate;
 import java.time.Period;

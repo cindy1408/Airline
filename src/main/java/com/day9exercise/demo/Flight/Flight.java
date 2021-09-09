@@ -1,10 +1,14 @@
-package com.day9exercise.demo;
+package com.day9exercise.demo.Flight;
+
+import com.day9exercise.demo.Country.Country;
+import com.day9exercise.demo.Customer.Customer;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 public class Flight {
+    private int id;
     private Country destination;
     private List<Customer> customers;
     private double travelTimeHours;
