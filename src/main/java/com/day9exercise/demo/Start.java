@@ -1,5 +1,7 @@
 package com.day9exercise.demo;
 
+import com.day9exercise.demo.Customer.Customer;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
