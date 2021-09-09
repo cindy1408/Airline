@@ -121,12 +121,12 @@ public class Customer {
                 '}';
     }
 
-    public static void main(String[] args) {
-
-        Customer customer = new Customer(LocalDate.of(2000, 04, 21));
-        LocalDate age = customer.setAge(LocalDate.of(2000, 04, 21));
-        System.out.println(age);
-    }
+//    public static void main(String[] args) {
+//
+//        Customer customer = new Customer(LocalDate.of(2000, 04, 21));
+//        LocalDate age = customer.setAge(LocalDate.of(2000, 04, 21));
+//        System.out.println(age);
+//    }
 }
 
 
