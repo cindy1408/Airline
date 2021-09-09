@@ -21,6 +21,17 @@ public class Customer {
     }
 
 
+    //Constructor without age - don't know how to include the age when i try create a new person
+
+    public Customer(int id, String firstName, String lastName, LocalDate dob,String passport) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.passport = passport;
+
+    }
+
     public Customer() {
     }
 
@@ -98,4 +109,11 @@ public class Customer {
                 '}';
     }
 
+
 }
+
+}
+
+
+
+
