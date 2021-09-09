@@ -1,6 +1,6 @@
 package com.day9exercise.demo.Flight;
 
-import com.day9exercise.demo.Country;
+import com.day9exercise.demo.Country.Country;
 import com.day9exercise.demo.Customer;
 import org.springframework.stereotype.Repository;
 

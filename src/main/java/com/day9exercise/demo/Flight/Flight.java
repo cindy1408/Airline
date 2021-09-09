@@ -1,10 +1,8 @@
 package com.day9exercise.demo.Flight;
 
-import com.day9exercise.demo.Country;
+import com.day9exercise.demo.Country.Country;
 import com.day9exercise.demo.Customer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;

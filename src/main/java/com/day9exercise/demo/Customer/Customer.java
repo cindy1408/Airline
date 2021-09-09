@@ -1,4 +1,4 @@
-package com.day9exercise.demo;
+package com.day9exercise.demo.Customer;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -12,34 +12,12 @@ public class Customer {
     private int age;
     private String passport;
 
-
-    public Customer(int id, String firstName, String lastName, LocalDate dob, String passport) {
-        this.id = id;
+    public Customer(String firstName, String lastName, LocalDate dob, String passport) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
-        this.age = age;
+        this.age = Period.between(dob, LocalDate.now()).getYears();
         this.passport = passport;
-    }
-
-    public Customer(String firstName, String lastName, LocalDate dob, int age, String passport) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.age = age;
-        this.passport = passport;
-    }
-
-    public Customer(int id, String firstName, String lastName, LocalDate dob, int age) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.age = age;
-    }
-
-    public Customer(LocalDate dob) {
-        this.dob = dob;
     }
 
     public Customer() {
@@ -81,11 +59,8 @@ public class Customer {
         return age;
     }
 
-    public LocalDate setAge(LocalDate dob) {
-        Period period = Period.between(dob, LocalDate.now());
-        int age = period.getYears();
-        this.age = age;
-        return dob;
+    public int setAge(LocalDate dob) {
+        return Period.between(dob, LocalDate.now()).getYears();
     }
 
     public String getPassport() {
@@ -121,13 +96,4 @@ public class Customer {
                 '}';
     }
 
-//    public static void main(String[] args) {
-//
-//        Customer customer = new Customer(LocalDate.of(2000, 04, 21));
-//        LocalDate age = customer.setAge(LocalDate.of(2000, 04, 21));
-//        System.out.println(age);
-//    }
 }
-
-
-
