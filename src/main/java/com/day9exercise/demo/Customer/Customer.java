@@ -35,6 +35,7 @@ public class Customer {
     public Customer() {
     }
 
+
     public int getId() {
         return id;
     }
