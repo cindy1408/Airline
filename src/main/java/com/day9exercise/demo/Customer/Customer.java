@@ -1,18 +1,42 @@
 package com.day9exercise.demo.Customer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
+import java.util.UUID;
 
+@Entity(name = "Customer")
+@Table(name = "customer", uniqueConstraints = {
+        @UniqueConstraint(name = "customer_passport_unique", columnNames = "passport")
+})
 public class Customer {
-    private int id;
+    @Id
+    @SequenceGenerator(name="customer_sequence",
+            sequenceName = "customer_sequence",
+            allocationSize = 1)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE, generator = "customer_sequence"
+    )
+    @Column(name = "id", updatable = false)
+    private Integer id;
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
+    @Column(name = "last_name", nullable = false,  columnDefinition = "TEXT")
     private String lastName;
+    @Column(name = "dob", nullable = false,  columnDefinition = "TEXT")
     private LocalDate dob;
+    @Column(name = "age")
     private int age;
+    @Column(name = "passport", nullable = false,  columnDefinition = "TEXT")
     private String passport;
 
-    public Customer(String firstName, String lastName, LocalDate dob, String passport) {
+    public Customer(@JsonProperty("firstName") String firstName,
+                    @JsonProperty("lastName")String lastName,
+                    @JsonProperty("dob")LocalDate dob,
+                    @JsonProperty("passport")String passport) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -23,12 +47,12 @@ public class Customer {
     public Customer() {
     }
 
+    public Integer getId() {
 
-    public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

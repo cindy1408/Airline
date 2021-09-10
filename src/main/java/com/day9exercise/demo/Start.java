@@ -1,14 +1,23 @@
 package com.day9exercise.demo;
 
 import com.day9exercise.demo.Customer.Customer;
+import com.day9exercise.demo.Customer.CustomerController;
+import com.day9exercise.demo.Customer.CustomerRepository;
+import com.day9exercise.demo.Customer.CustomerRepositoryPostgres;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Start {
+    @Autowired
+    private CustomerController customerController;
     Scanner scanner = new Scanner(System.in);
 
-    public void welcome(){
+    public Start(CustomerController customerController) {
+        this.customerController = customerController;
+    }
+    public void welcome(CustomerRepositoryPostgres postgresql){
         System.out.println("Would you like to book a flight? y/n");
 //        scanner.nextLine();
         String answer = scanner.nextLine();
@@ -25,11 +34,12 @@ public class Start {
             Customer newCustomer = new Customer(firstName, surname, dob,passport);
             System.out.println("Your information have been saved");
             System.out.println(newCustomer);
+            customerController.addNewCustomer(newCustomer);
+
         } else {
             System.out.println("Thank you for your time.");
         }
 
     }
-
 
 }
