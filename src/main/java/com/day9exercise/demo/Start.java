@@ -1,23 +1,28 @@
 package com.day9exercise.demo;
 
-import com.day9exercise.demo.Customer.Customer;
-import com.day9exercise.demo.Customer.CustomerController;
-import com.day9exercise.demo.Customer.CustomerRepository;
-import com.day9exercise.demo.Customer.CustomerRepositoryPostgres;
+import com.day9exercise.demo.Customer.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
+@Component
 public class Start {
+    private CustomerService customerService;
     @Autowired
-    private CustomerController customerController;
+    CustomerController customerController = new CustomerController(customerService);
     Scanner scanner = new Scanner(System.in);
 
     public Start(CustomerController customerController) {
         this.customerController = customerController;
     }
-    public void welcome(CustomerRepositoryPostgres postgresql){
+
+    public Start() {
+
+    }
+
+    public void welcome() {
         System.out.println("Would you like to book a flight? y/n");
 //        scanner.nextLine();
         String answer = scanner.nextLine();
@@ -34,6 +39,7 @@ public class Start {
             Customer newCustomer = new Customer(firstName, surname, dob,passport);
             System.out.println("Your information have been saved");
             System.out.println(newCustomer);
+            customerController.listCustomers();
             customerController.addNewCustomer(newCustomer);
 
         } else {
