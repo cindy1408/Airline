@@ -15,7 +15,7 @@ public class FlightService {
         this.flightDataAccess = flightDataAccess;
     }
 
-    List<Flight> getListFlights(){
+    public List<Flight> getListFlights(){
         return flightDataAccess.getListFlights();
     }
 
