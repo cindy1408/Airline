@@ -3,7 +3,6 @@ package com.day9exercise.demo.Flight;
 import com.day9exercise.demo.Country.Country;
 import com.day9exercise.demo.Customer.Customer;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,13 +13,13 @@ public class Flight {
     private LocalDateTime timeDeparture;
     private LocalDateTime timeArrival;
     private boolean withReturnTicket;
-    private LocalTime returnTimeDeparture;
-    private LocalTime returnTimeArrival;
+    private LocalDateTime returnTimeDeparture;
+    private LocalDateTime returnTimeArrival;
     private int numberOfPassenger;
     private double totalPrice;
     private String flightNumber;
 
-    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
+    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalDateTime returnTimeDeparture, LocalDateTime returnTimeArrival, double totalPrice, String flightNumber) {
         this.destination = destination;
         this.customers = customers;
         this.travelTimeHours = travelTimeHours;
@@ -29,6 +28,17 @@ public class Flight {
         this.withReturnTicket = withReturnTicket;
         this.returnTimeDeparture = returnTimeDeparture;
         this.returnTimeArrival = returnTimeArrival;
+        this.numberOfPassenger = this.customers.size();
+        this.totalPrice = totalPrice;
+        this.flightNumber = flightNumber;
+    }
+    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, double totalPrice, String flightNumber) {
+        this.destination = destination;
+        this.customers = customers;
+        this.travelTimeHours = travelTimeHours;
+        this.timeDeparture = timeDeparture;
+        this.timeArrival = timeArrival;
+        this.withReturnTicket = withReturnTicket;
         this.numberOfPassenger = this.customers.size();
         this.totalPrice = totalPrice;
         this.flightNumber = flightNumber;
@@ -86,20 +96,28 @@ public class Flight {
         this.withReturnTicket = withReturnTicket;
     }
 
-    public LocalTime getReturnTimeDeparture() {
+    public LocalDateTime getReturnTimeDeparture() {
         return returnTimeDeparture;
     }
 
-    public void setReturnTimeDeparture(LocalTime returnTimeDeparture) {
-        this.returnTimeDeparture = returnTimeDeparture;
+    public Object setReturnTimeDeparture(LocalDateTime returnTimeDeparture) {
+        if (withReturnTicket == false) {
+            return returnTimeDeparture == null;
+        } else {
+           return this.returnTimeDeparture = returnTimeDeparture;
+        }
     }
 
-    public LocalTime getReturnTimeArrival() {
+    public LocalDateTime getReturnTimeArrival() {
         return returnTimeArrival;
     }
 
-    public void setReturnTimeArrival(LocalTime returnTimeArrival) {
-        this.returnTimeArrival = returnTimeArrival;
+    public Object setReturnTimeArrival(LocalDateTime returnTimeArrival) {
+        if (withReturnTicket == false) {
+            return returnTimeArrival == null;
+        } else {
+            return this.returnTimeArrival = returnTimeArrival;
+        }
     }
 
     public int getNumberOfPassenger() {
