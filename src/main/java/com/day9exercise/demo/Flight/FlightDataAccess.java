@@ -24,10 +24,10 @@ public class FlightDataAccess {
             customers.add(customer);
 
         Flight flight = new Flight(new Country("Malta"), List.of(customer), 2.50,
-                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55), false,null,null, customers.size(), 86.05, "MALTA21");
+                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55), false, null,null, 86.05, "MALTA21");
 
         Flight flight1 = new Flight(new Country("Turkey"), customers, 2.50,
-                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55),true, LocalTime.of(14,25), LocalTime.of(17,15), customers.size(), 86.85, "MALTA21");
+                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55),true, LocalTime.of(14,25), LocalTime.of(17,15), 86.85, "TURK21");
 
 
         listFlights = new ArrayList<>();
@@ -35,15 +35,17 @@ public class FlightDataAccess {
         listFlights.add(flight1);
     }
 
-    public List<Flight> getListFlights() {
+    public static List<Flight> getListFlights() {
         return listFlights;
     }
 
-    public void addFlight(Flight flight){
+    public List<Flight> addFlight(Flight flight){
         listFlights.add(flight);
+        return listFlights;
     }
 
-    public void cancelFlight(Flight flight){
+    public static List<Flight> cancelFlight(Flight flight){
         listFlights.remove(flight);
+        return listFlights;
     }
 }

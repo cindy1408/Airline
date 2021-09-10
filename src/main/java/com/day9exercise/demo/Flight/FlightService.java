@@ -1,6 +1,5 @@
 package com.day9exercise.demo.Flight;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +18,8 @@ public class FlightService {
         return flightDataAccess.getListFlights();
     }
 
-    Flight getListFlights(String flightNumber){
-        return getListFlights()
+    Flight doesFlightExist(String flightNumber){
+        return FlightDataAccess.getListFlights()
                 .stream()
                 .filter(flight -> flight.getFlightNumber() == flightNumber)
                 .findFirst()
