@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Flight {
-    private Country origin;
     private Country destination;
     private List<Customer> customers;
     private double travelTimeHours;
@@ -21,7 +20,7 @@ public class Flight {
     private double totalPrice;
     private String flightNumber;
 
-    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, int numberOfPassenger, double totalPrice, String flightNumber) {
+    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
         this.destination = destination;
         this.customers = customers;
         this.travelTimeHours = travelTimeHours;
@@ -36,36 +35,7 @@ public class Flight {
 
     }
 
-//    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
-//        this.numberOfPassenger = numberOfPassenger;
-//        this.totalPrice = totalPrice;
-//    }
-
-//    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, int numberOfPassenger, double totalPrice) {
-//        this.destination = destination;
-//        this.customers = customers;
-//        this.travelTimeHours = travelTimeHours;
-//        this.timeDeparture = timeDeparture;
-//        this.timeArrival = timeArrival;
-//
-//        this.withReturnTicket = withReturnTicket;
-//        this.returnTimeDeparture = returnTimeDeparture;
-//        this.returnTimeArrival = returnTimeArrival;
-//
-//        this.numberOfPassenger = this.customers.size();
-//        this.totalPrice = totalPrice;
-//        this.flightNumber = flightNumber;
-//    }
-
     public Flight() {
-    }
-
-    public Country getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(Country origin) {
-        this.origin = origin;
     }
 
     public Country getDestination() {
@@ -161,18 +131,17 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Double.compare(flight.getTravelTimeHours(), getTravelTimeHours()) == 0 && isWithReturnTicket() == flight.isWithReturnTicket() && getNumberOfPassenger() == flight.getNumberOfPassenger() && Double.compare(flight.getTotalPrice(), getTotalPrice()) == 0 && Objects.equals(getOrigin(), flight.getOrigin()) && Objects.equals(getDestination(), flight.getDestination()) && Objects.equals(getCustomers(), flight.getCustomers()) && Objects.equals(getTimeDeparture(), flight.getTimeDeparture()) && Objects.equals(getTimeArrival(), flight.getTimeArrival()) && Objects.equals(getReturnTimeDeparture(), flight.getReturnTimeDeparture()) && Objects.equals(getReturnTimeArrival(), flight.getReturnTimeArrival()) && Objects.equals(getFlightNumber(), flight.getFlightNumber());
+        return Double.compare(flight.getTravelTimeHours(), getTravelTimeHours()) == 0 && isWithReturnTicket() == flight.isWithReturnTicket() && getNumberOfPassenger() == flight.getNumberOfPassenger() && Double.compare(flight.getTotalPrice(), getTotalPrice()) == 0 && Objects.equals(getDestination(), flight.getDestination()) && Objects.equals(getCustomers(), flight.getCustomers()) && Objects.equals(getTimeDeparture(), flight.getTimeDeparture()) && Objects.equals(getTimeArrival(), flight.getTimeArrival()) && Objects.equals(getReturnTimeDeparture(), flight.getReturnTimeDeparture()) && Objects.equals(getReturnTimeArrival(), flight.getReturnTimeArrival()) && Objects.equals(getFlightNumber(), flight.getFlightNumber());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrigin(), getDestination(), getCustomers(), getTravelTimeHours(), getTimeDeparture(), getTimeArrival(), isWithReturnTicket(), getReturnTimeDeparture(), getReturnTimeArrival(), getNumberOfPassenger(), getTotalPrice(), getFlightNumber());
+        return Objects.hash(getDestination(), getCustomers(), getTravelTimeHours(), getTimeDeparture(), getTimeArrival(), isWithReturnTicket(), getReturnTimeDeparture(), getReturnTimeArrival(), getNumberOfPassenger(), getTotalPrice(), getFlightNumber());
     }
 
     @Override
     public String toString() {
         return "Flight{" +
-                "origin=" + origin +
                 ", destination=" + destination +
                 ", customers=" + customers +
                 ", travelTimeHours=" + travelTimeHours +
