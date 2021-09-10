@@ -16,11 +16,24 @@ public FlightController(FlightService flightService){
 }
 
 @GetMapping
-List<Flight> getListFlights(){
+public List<Flight> getListFlights(){
     return flightService.getListFlights();
 }
+
+@PostMapping
+void createNewFlight(@RequestBody Flight flight){
+    System.out.println("POST REQUEST TO UPDATE...");
+    System.out.println(flight);
+}
+
+@PutMapping
+void updateNewFlight(@RequestBody Flight flight){
+        System.out.println("PUT REQUEST TO UPDATE...");
+        System.out.println(flight);
+    }
+
 @DeleteMapping(path= "{flightNumber}")
     void cancelFlight(@PathVariable("flightNumber") String flightNumber){
     System.out.println("THE FOLLOWING FLIGHT NUMBER WILL BE DELETED " + flightNumber);
-}
+    }
 }

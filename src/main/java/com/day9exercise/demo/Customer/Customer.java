@@ -20,7 +20,6 @@ public class Customer {
         this.passport = passport;
     }
 
-
     public Customer() {
     }
 
