@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CustomerRepositoryPostgres extends JpaRepository<Customer, Integer> {
 
-    Optional<Customer> findCustomerByPassport(String email);
+    Optional<Customer> findCustomerByPassport(String customerPassport);
 
 }
 

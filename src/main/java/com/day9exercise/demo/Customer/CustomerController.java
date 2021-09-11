@@ -7,22 +7,32 @@ import java.util.List;
 
 @RequestMapping("api/customers")
 @RestController
-public class CustomerController {
+public record CustomerController(CustomerService customerService) {
 
-    private final CustomerService customerService;
     @Autowired
-    public CustomerController(CustomerService customerService){
-        this.customerService = customerService;
+    public CustomerController {
     }
 
     @GetMapping
-    public List<Customer> listCustomers(){
+    public List<Customer> listCustomers() {
         return customerService.getFullListCustomer();
     }
 
+    @GetMapping(path = "/customer")
+    public void requestedCustomer(String customerPassport) {
+        customerService.requestedCustomer(customerPassport);
+    }
+
     @PostMapping
-    public Customer addNewCustomer(Customer newCustomer){
+    public Customer addNewCustomer(Customer newCustomer) {
         return customerService.addNewCustomer(newCustomer);
+    }
+
+
+
+    @DeleteMapping
+    public void deleteCustomer(String customerPassport){
+        customerService.deleteCustomer(customerPassport);
     }
 
 }
