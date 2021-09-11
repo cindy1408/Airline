@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Flight {
     private Country destination;
     private List<Customer> customers;
-    private double travelTimeHours;
+    private int travelTimeMinutes;
     private LocalDateTime timeDeparture;
     private LocalDateTime timeArrival;
     private boolean withReturnTicket;
@@ -20,10 +20,10 @@ public class Flight {
     private double totalPrice;
     private String flightNumber;
 
-    public Flight(Country destination, List<Customer> customers, double travelTimeHours, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
+    public Flight(Country destination, List<Customer> customers, int travelTimeMinutes, LocalDateTime timeDeparture, LocalDateTime timeArrival, boolean withReturnTicket, LocalTime returnTimeDeparture, LocalTime returnTimeArrival, double totalPrice, String flightNumber) {
         this.destination = destination;
         this.customers = customers;
-        this.travelTimeHours = travelTimeHours;
+        this.travelTimeMinutes = travelTimeMinutes;
         this.timeDeparture = timeDeparture;
         this.timeArrival = timeArrival;
         this.withReturnTicket = withReturnTicket;
@@ -55,11 +55,11 @@ public class Flight {
     }
 
     public double getTravelTimeHours() {
-        return travelTimeHours;
+        return travelTimeMinutes;
     }
 
     public void setTravelTimeHours(double travelTimeHours) {
-        this.travelTimeHours = travelTimeHours;
+        this.travelTimeMinutes = travelTimeMinutes;
     }
 
     public LocalDateTime getTimeDeparture() {
@@ -144,7 +144,7 @@ public class Flight {
         return "Flight{" +
                 ", destination=" + destination +
                 ", customers=" + customers +
-                ", travelTimeHours=" + travelTimeHours +
+                ", travelTimeMinutes=" + travelTimeMinutes +
                 ", timeDeparture=" + timeDeparture +
                 ", timeArrival=" + timeArrival +
                 ", withReturnTicket=" + withReturnTicket +

@@ -1,7 +1,12 @@
 package com.day9exercise.demo;
+import com.day9exercise.demo.Country.Country;
+import com.day9exercise.demo.Country.CountryController;
+import com.day9exercise.demo.Country.CountryRepositoryPostgres;
 import com.day9exercise.demo.Customer.*;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -10,9 +15,11 @@ import java.util.Scanner;
 
 public class DemoApplication {
 	private static CustomerController customerController;
+	private static CountryController countryController;
 
-	public DemoApplication(CustomerController customerController) {
+	public DemoApplication(CustomerController customerController, CountryController countryController) {
 		this.customerController = customerController;
+		this.countryController = countryController;
 	}
 
 	public static void main(String[] args) {
@@ -30,7 +37,7 @@ public class DemoApplication {
 			System.out.println("Please enter your password");
 			String password  = scanner.nextLine();
 			if(username.equals("username") && password.equals("password")){
-				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2. Delete customer by passport?\n3. Amend customer details\n4. View full list of customers");
+				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2. Delete customer by passport?\n3. Amend customer details\n4. View full list of customers\n5. Add new country destination\n6. Delete country from list\n7. Update country");
 				int userInput = scanner.nextInt();
 				switch (userInput){
 					case 1:
@@ -54,7 +61,30 @@ public class DemoApplication {
 						break;
 					case 4:
 						customerController.listAllCustomers();
-
+						break;
+					case 5:
+						System.out.println("You would like to add a new country destination");
+						System.out.println("Please enter the name of the new Country");
+						scanner.nextLine();
+						String countryName = scanner.nextLine();
+						System.out.println("Please enter the estimated duration in minutes");
+						int estimatedDuration = scanner.nextInt();
+						System.out.println("Please enter the price");
+						double price = scanner.nextInt();
+						Country newCountry = new Country(countryName, estimatedDuration, price);
+						countryController.insertNewCountry(newCountry);
+						break;
+					case 6:
+						System.out.println("Please enter the country id you want to delete from the system");
+						int countryId = scanner.nextInt();
+						countryController.deleteCountry(countryId);
+						break;
+					case 7:
+						System.out.println("Please enter the country id you want to update");
+						int updateCountry = scanner.nextInt();
+						System.out.println("which of the following do you need to update?\n1. Country name?\n2. Estimated Travel?\n3.Price");
+						int requestedUpdate = scanner.nextInt();
+						countryController.updateCountry(updateCountry, requestedUpdate);
 				}
 			} else {
 				System.out.println("Invalid logging, please try again");
@@ -87,6 +117,8 @@ public class DemoApplication {
 
 		}
 
+
+
 		//BELOW WORKS!
 //		@Bean
 //		CommandLineRunner commandLineRunner(CustomerRepositoryPostgres customerRepositoryPostgres){
@@ -94,6 +126,7 @@ public class DemoApplication {
 //			Customer jessica = new Customer("Jessica", "Ali", LocalDate.of(2000, 6,14), "ALI9219027490124");
 //			customerRepositoryPostgres.save(jessica);
 //		};
+
+		}
 	}
-}
 

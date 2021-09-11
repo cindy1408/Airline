@@ -1,12 +1,9 @@
 package com.day9exercise.demo.Customer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "Customer")
 @Table(name = "customer", uniqueConstraints = {
@@ -21,7 +18,7 @@ public class Customer {
             strategy = GenerationType.SEQUENCE, generator = "customer_sequence"
     )
     @Column(name = "id", updatable = false)
-    private Integer id;
+    private int id;
     @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
     @Column(name = "last_name", nullable = false,  columnDefinition = "TEXT")
@@ -47,12 +44,12 @@ public class Customer {
     public Customer() {
     }
 
-    public Integer getId() {
+    public int getId() {
 
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
