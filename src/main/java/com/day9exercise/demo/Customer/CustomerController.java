@@ -14,7 +14,8 @@ public record CustomerController(CustomerService customerService) {
     }
 
     @GetMapping
-    public List<Customer> listCustomers() {
+    public List<Customer> listAllCustomers() {
+        System.out.println(customerService.getFullListCustomer());
         return customerService.getFullListCustomer();
     }
 
@@ -28,6 +29,10 @@ public record CustomerController(CustomerService customerService) {
         return customerService.addNewCustomer(newCustomer);
     }
 
+    @PutMapping
+    public void updateCustomer(int customerId, int customerUpdateRequired){
+        customerService().updateCustomer(customerId, customerUpdateRequired);
+    }
 
 
     @DeleteMapping

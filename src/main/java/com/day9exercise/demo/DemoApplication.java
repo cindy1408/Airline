@@ -20,7 +20,7 @@ public class DemoApplication {
 
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Sign in as Employee or Customer? 1. Employee 2. Customer");
+		System.out.println("Sign in as Employee or Customer?\n1. Employee\n2. Customer");
 		int input = scanner.nextInt();
 		if(input == 1){
 			// EMPLOYEE SECTION
@@ -30,7 +30,7 @@ public class DemoApplication {
 			System.out.println("Please enter your password");
 			String password  = scanner.nextLine();
 			if(username.equals("username") && password.equals("password")){
-				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2.Delete customer by passport?\n3. Amend customer details");
+				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2. Delete customer by passport?\n3. Amend customer details\n4. View full list of customers");
 				int userInput = scanner.nextInt();
 				switch (userInput){
 					case 1:
@@ -46,7 +46,14 @@ public class DemoApplication {
 						customerController.deleteCustomer(customerPassportDelete);
 						break;
 					case 3:
-						System.out.println("Yet to implement.... this is PUT REQUEST");
+						System.out.println("Please type in the customer id number");
+						int customerId = scanner.nextInt();
+						System.out.println("Please type the required customer information that needs to be updated.\n1. first name\n2. surname\n3. passport number");
+						int updateInfo = scanner.nextInt();
+						customerController.updateCustomer(customerId, updateInfo);
+						break;
+					case 4:
+						customerController.listAllCustomers();
 
 				}
 			} else {
@@ -79,9 +86,6 @@ public class DemoApplication {
 			}
 
 		}
-
-
-
 
 		//BELOW WORKS!
 //		@Bean
