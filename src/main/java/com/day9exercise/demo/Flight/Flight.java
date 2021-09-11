@@ -1,5 +1,6 @@
 package com.day9exercise.demo.Flight;
-
+//The flight package is where you can find all the logic regarding the flight details. Customers will be able to
+//book, change times/ dates, and cancel flights.
 import com.day9exercise.demo.Country.Country;
 import com.day9exercise.demo.Customer.Customer;
 import java.time.LocalDateTime;
