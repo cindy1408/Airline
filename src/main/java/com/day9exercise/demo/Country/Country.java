@@ -1,13 +1,12 @@
 package com.day9exercise.demo.Country;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "Country")
 @Table(name = "country", uniqueConstraints = {
-        @UniqueConstraint(name = "country_name", columnNames = "country_name")
+        @UniqueConstraint(name = "country_name_unique", columnNames = "country_name")
 })
 public class Country {
     @Id
@@ -23,10 +22,12 @@ public class Country {
     private String name;
     @Column(name = "estimated_travel", nullable = false)
     private int estimatedTravelMinutes;
+    @Column(name = "price", nullable = false)
     private double price;
 
     public Country(@JsonProperty("name") String name,
-                   @JsonProperty("estimated_travel") int estimatedTravelMinutes, double price) {
+                   @JsonProperty("estimated_travel") int estimatedTravelMinutes,
+                   @JsonProperty("price") double price) {
         this.name = name;
         this.estimatedTravelMinutes = estimatedTravelMinutes;
         this.price = price;

@@ -22,15 +22,14 @@ public class CountryService {
     }
 
     //GET REQUEST
-    public void requestedCountry(String countryName){
-        countryRepositoryPostgres.findCountryByName(countryName)
+    public void requestedCountry(int countryId){
+        countryRepositoryPostgres.findById(countryId)
                 .ifPresentOrElse(country -> {
                     System.out.println(country);
                 }, () -> {
                     System.out.println("The country id does not exist within our system.");
                 });
     }
-
 
     //POST REQUEST
     public Country addNewCountry(Country newCountry){

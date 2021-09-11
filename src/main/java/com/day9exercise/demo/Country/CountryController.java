@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RequestMapping("api/country")
 @RestController
@@ -21,8 +22,8 @@ public record CountryController(CountryService countryService) {
     }
 
     @GetMapping("/country")
-    public void requestedCountry(String countryName){
-        countryService.requestedCountry(countryName);
+    public void requestedCountry(int countryId){
+        countryService.requestedCountry(countryId);
     }
 
     @PostMapping
