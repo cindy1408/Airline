@@ -1,25 +1,27 @@
 package com.day9exercise.demo;
 import com.day9exercise.demo.Country.Country;
 import com.day9exercise.demo.Country.CountryController;
-import com.day9exercise.demo.Country.CountryRepositoryPostgres;
 import com.day9exercise.demo.Customer.*;
-import org.springframework.boot.CommandLineRunner;
+import com.day9exercise.demo.Employee.Employee;
+import com.day9exercise.demo.Employee.EmployeeController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @SpringBootApplication
-
 public class DemoApplication {
 	private static CustomerController customerController;
 	private static CountryController countryController;
+	private static EmployeeController employeeController;
 
-	public DemoApplication(CustomerController customerController, CountryController countryController) {
+	public DemoApplication(CustomerController customerController, CountryController countryController, EmployeeController employeeController) {
 		this.customerController = customerController;
 		this.countryController = countryController;
+		this.employeeController = employeeController;
 	}
 
 	public static void main(String[] args) {
@@ -31,13 +33,20 @@ public class DemoApplication {
 		int input = scanner.nextInt();
 		if(input == 1){
 			// EMPLOYEE SECTION
+			System.out.println("Please enter your employee id");
+			scanner.nextLine();
+			int id = scanner.nextInt();
 			System.out.println("Please enter your username");
 			scanner.nextLine();
 			String username = scanner.nextLine();
 			System.out.println("Please enter your password");
 			String password  = scanner.nextLine();
-			if(username.equals("username") && password.equals("password")){
-				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2. Delete customer by passport?\n3. Amend customer details\n4. View full list of customers\n5. Add new country destination\n6. Delete country from list\n7. Update country");
+
+			AtomicBoolean loggingsuccessful = employeeController.checkEmployee(id, username, password);
+			System.out.println(loggingsuccessful);
+
+			if(loggingsuccessful.get()){
+				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2. Delete customer by passport?\n3. Amend customer details\n4. View full list of customers\n5. Add new country destination\n6. Delete country from list\n7. Update country\n8. Find country details by name\n9. Add new employee\n10. Employees full list\n11. Update current employees");
 				int userInput = scanner.nextInt();
 				switch (userInput){
 					case 1:
@@ -85,6 +94,46 @@ public class DemoApplication {
 						System.out.println("which of the following do you need to update?\n1. Country name?\n2. Estimated Travel?\n3.Price");
 						int requestedUpdate = scanner.nextInt();
 						countryController.updateCountry(updateCountry, requestedUpdate);
+						break;
+					case 8:
+						System.out.println("Please enter the country id");
+						scanner.nextLine();
+						int requestedCountryId = scanner.nextInt();
+						countryController.requestedCountry(requestedCountryId);
+						break;
+					case 9:
+						System.out.println("Please enter your username");
+						scanner.nextLine();
+						String newUsername = scanner.nextLine();
+						System.out.println("Please enter your password");
+						String newPassword = scanner.nextLine();
+						System.out.println("Please enter your first name");
+						String newFirstName = scanner.nextLine();
+						System.out.println("Please enter your surname");
+						String newSurname = scanner.nextLine();
+						System.out.println("Please enter your National Insurance number");
+						String newNationalInsurance = scanner.nextLine();
+						System.out.println("Are you a current employee? y/n");
+						String answer = scanner.nextLine();
+						Boolean currentEmployee = false;
+						if(answer.toLowerCase().trim().equals("y")){
+							currentEmployee = true;
+						} else {
+							currentEmployee = false;
+						}
+						Employee newEmployee = new Employee(newUsername, newPassword, newFirstName, newSurname, newNationalInsurance, currentEmployee);
+						employeeController.insertNewEmployee(newEmployee);
+						System.out.println("Thank you, your employee id is " + newEmployee.getId());
+						break;
+					case 10:
+						employeeController.employeesFullList();
+						break;
+					case 11:
+						System.out.println("Please enter your employee id");
+						int employeeId = scanner.nextInt();
+						System.out.println("Please enter whether you want to update\n1. Username\n2. Password\n3. First name\n4. Surname\n5. Current Employee");
+						int update = scanner.nextInt();
+						employeeController.updateCurrentEmployees(employeeId, update);
 				}
 			} else {
 				System.out.println("Invalid logging, please try again");
