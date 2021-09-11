@@ -11,8 +11,6 @@ import java.util.Scanner;
 public class DemoApplication {
 	private static CustomerController customerController;
 
-	private CustomerService customerService;
-
 	public DemoApplication(CustomerController customerController) {
 		this.customerController = customerController;
 	}
@@ -22,28 +20,67 @@ public class DemoApplication {
 
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Would you like to book a flight? y/n");
+		System.out.println("Sign in as Employee or Customer? 1. Employee 2. Customer");
+		int input = scanner.nextInt();
+		if(input == 1){
+			// EMPLOYEE SECTION
+			System.out.println("Please enter your username");
+			scanner.nextLine();
+			String username = scanner.nextLine();
+			System.out.println("Please enter your password");
+			String password  = scanner.nextLine();
+			if(username.equals("username") && password.equals("password")){
+				System.out.println("logging successfully.\nWhat would you like to do?\n1. Search customer by passport?\n2.Delete customer by passport?\n3. Amend customer details");
+				int userInput = scanner.nextInt();
+				switch (userInput){
+					case 1:
+						System.out.println("Please enter the customer passport number");
+						scanner.nextLine();
+						String customerPassport = scanner.nextLine();
+						customerController.requestedCustomer(customerPassport);
+						break;
+					case 2:
+						System.out.println("Please enter the customer passport number");
+						scanner.nextLine();
+						String customerPassportDelete = scanner.nextLine();
+						customerController.deleteCustomer(customerPassportDelete);
+						break;
+					case 3:
+						System.out.println("Yet to implement.... this is PUT REQUEST");
 
-		String answer = scanner.nextLine();
-		if (answer.toLowerCase().trim().equals("y")) {
-			System.out.println("We will need to take in your information\nWhat is your first name?");
-			String firstName = scanner.nextLine();
-			System.out.println("What is your surname?");
-			String surname = scanner.nextLine();
-			System.out.println("What is your date of birth? \nPlease provide it in this format yyyy-mm-dd");
-			String dobRaw = scanner.nextLine();
-			LocalDate dob = LocalDate.parse(dobRaw);
-			System.out.println("Please provide your passport number");
-			String passport = scanner.nextLine();
-			Customer newCustomer = new Customer(firstName, surname, dob, passport);
-			System.out.println("Your information have been saved");
-			System.out.println(newCustomer);
-			customerController.listCustomers();
-			customerController.addNewCustomer(newCustomer);
+				}
+			} else {
+				System.out.println("Invalid logging, please try again");
+			}
 
 		} else {
-			System.out.println("Thank you for your time.");
+
+			//CUSTOMER SECTION
+			System.out.println("Would you like to book a flight? y/n");
+
+			String answer = scanner.nextLine();
+			if (answer.toLowerCase().trim().equals("y")) {
+				System.out.println("We will need to take in your information\nWhat is your first name?");
+				String firstName = scanner.nextLine();
+				System.out.println("What is your surname?");
+				String surname = scanner.nextLine();
+				System.out.println("What is your date of birth? \nPlease provide it in this format yyyy-mm-dd");
+				String dobRaw = scanner.nextLine();
+				LocalDate dob = LocalDate.parse(dobRaw);
+				System.out.println("Please provide your passport number");
+				String passport = scanner.nextLine();
+				Customer newCustomer = new Customer(firstName, surname, dob, passport);
+				System.out.println("Your information have been saved");
+				customerController.addNewCustomer(newCustomer);
+				customerController.requestedCustomer(newCustomer.getPassport());
+				System.out.println("Thank you for registering, your id is " + newCustomer.getId());
+			} else {
+				System.out.println("Thank you for your time.");
+			}
+
 		}
+
+
 
 
 		//BELOW WORKS!
