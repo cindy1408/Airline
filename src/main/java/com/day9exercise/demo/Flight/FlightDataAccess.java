@@ -17,22 +17,22 @@ public class FlightDataAccess {
 
     public FlightDataAccess() {
 
-        List<Customer> customers = new ArrayList<>(List.of(new Customer("Mary", "Anderson", LocalDate.of(2000, 6, 16), "HN46K93B"),
-                new Customer("Sahra", "Osman", LocalDate.of(1999, 05, 24), "HD65J2B3")));
-
-            Customer customer = new Customer("Samira", "Sagadi", LocalDate.of(1992,12,2), "ER85NY3D");
-            customers.add(customer);
-
-        Flight flight = new Flight(new Country("Malta"), List.of(customer), 150,
-                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55), false, null,null, 86.05, "MALTA21");
-
-        Flight flight1 = new Flight(new Country("Turkey"), customers, 150,
-                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55),true, LocalTime.of(14,25), LocalTime.of(17,15), 86.85, "TURK21");
-
-
-        listFlights = new ArrayList<>();
-        listFlights.add(flight);
-        listFlights.add(flight1);
+//        List<Customer> customers = new ArrayList<>(List.of(new Customer("Mary", "Anderson", LocalDate.of(2000, 6, 16), "HN46K93B"),
+//                new Customer("Sahra", "Osman", LocalDate.of(1999, 05, 24), "HD65J2B3")));
+//
+//            Customer customer = new Customer("Samira", "Sagadi", LocalDate.of(1992,12,2), "ER85NY3D");
+//            customers.add(customer);
+//
+//        Flight flight = new Flight(new Country("Malta"), List.of(customer), 150,
+//                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55), false, null,null, 86.05, "MALTA21");
+//
+//        Flight flight1 = new Flight(new Country("Turkey"), customers, 150,
+//                LocalDateTime.of(2021, 10, 25, 10, 25), LocalDateTime.of(2021, 11, 10, 17, 55),true, LocalDateTime.of(2021, 8, 24, 9, 52), LocalDateTime.of(2021, 12, 30, 14, 51), 86.85, "TURK21");
+//
+//
+//        listFlights = new ArrayList<>();
+//        listFlights.add(flight);
+//        listFlights.add(flight1);
     }
 
     public static List<Flight> getListFlights() {

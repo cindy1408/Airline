@@ -25,7 +25,7 @@ public class Country {
     @Column(name = "price", nullable = false)
     private double price;
 
-    public Country(@JsonProperty("name") String name,
+    public Country(@JsonProperty("country_name") String name,
                    @JsonProperty("estimated_travel") int estimatedTravelMinutes,
                    @JsonProperty("price") double price) {
         this.name = name;
