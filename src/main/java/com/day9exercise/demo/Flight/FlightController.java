@@ -33,6 +33,12 @@ public record FlightController(FlightService flightService) {
         flightService.addNewFlight(flight);
     }
 
+    @PutMapping
+    public void updatedFlight(String passport, int customerFlightId){
+        flightService.updateFlight(passport, customerFlightId);
+    }
+
+
     @DeleteMapping
     public void deleteFlight(int flightId){
         flightService.deleteFlight(flightId);

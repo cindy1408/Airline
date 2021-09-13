@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Service
 public class FlightService {
@@ -31,10 +32,25 @@ public class FlightService {
     }
 
     public void viewUserFlight(int userId){
-        flightRepositoryPostgres.findById(userId)
+        flightRepositoryPostgres.findFlightByCustomersId(userId);
+    }
+
+    public void updateFlight(String passport, int customerFlightId){
+        customerRepositoryPostgres.findCustomerByPassport(passport).ifPresentOrElse(customer -> {
+            System.out.println("Thank you, you have been verified");
+        }, () -> {
+            System.out.println("We can't find you in our system!");
+        });
+        flightRepositoryPostgres.findFlightByFlightId(customerFlightId)
                 .ifPresentOrElse(flight -> {
-                    System.out.println(flight);
-                }, () -> System.out.println("We are unable to find your flight, please go to customer support for help."));
+                    System.out.println(countryRepositoryPostgres.findAll());
+                            System.out.println("Please enter the id of your desired holiday");
+                            Scanner scanner = new Scanner(System.in);
+                            int userHoliday = scanner.nextInt();
+                            flight.setCountryId(userHoliday);
+                            flightRepositoryPostgres.save(flight);
+                            },
+                        () -> System.out.println("We are unable to find your customer id in our database"));
     }
 
     public void deleteFlight(int flightId){

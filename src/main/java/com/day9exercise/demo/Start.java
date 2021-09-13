@@ -188,12 +188,14 @@ public class Start {
                     bookingFlightAndCheckCustomer(customerController, countryController, employeeController, flightController);
                     break;
             case 3:
-                System.out.println("Please enter your customer id number");
-                int customer_Id = scanner.nextInt();
-                flightController.viewUserFlight(customer_Id);
-                System.out.println("Please select what you want to update\n1. Country\n2. Time departure");
-                int customerSelection = scanner.nextInt();
-                // UPDATE FLIGHT DETAILS
+                System.out.println("Please enter your passport number");
+                scanner.nextLine();
+                String passport = scanner.nextLine();
+                customerController.requestedCustomer(passport);
+                System.out.println("Please enter your flight id");
+                int customerflightId = scanner.nextInt();
+                flightController.updatedFlight(passport, customerflightId);
+
                 break;
             case 4:
                 System.out.println("Please enter your customer id number");
@@ -274,6 +276,7 @@ public class Start {
             flightController.addNewFlight(newFlight);
         }
     }
+
 
     public String findRandomSeatNumber(String flightNumber){
         Random r = new Random();
