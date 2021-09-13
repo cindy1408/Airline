@@ -62,6 +62,8 @@ public class Flight {
         this.customerFlightNumber = customerFlightNumber;
     }
 
+    public Flight() {
+    }
 
     public int getFlightId() {
         return flightId;
