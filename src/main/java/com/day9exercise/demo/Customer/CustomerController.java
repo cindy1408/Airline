@@ -24,6 +24,11 @@ public record CustomerController(CustomerService customerService) {
         customerService.requestedCustomer(customerPassport);
     }
 
+    @GetMapping(path = "/greetCustomer")
+    public void greetCustomer(String customerPassport) {
+        customerService.greetCustomer(customerPassport);
+    }
+
     @PostMapping
     public Customer addNewCustomer(Customer newCustomer) {
         return customerService.addNewCustomer(newCustomer);

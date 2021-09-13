@@ -34,6 +34,15 @@ public class CustomerService {
                 });
     }
 
+    public void greetCustomer(String customerPassport){
+        customerRepositoryPostgres.findCustomerByPassport(customerPassport)
+                .ifPresentOrElse(customer -> {
+                    System.out.println("Hello " + customer.getFirstName() + "!\nPlease confirm if the following details are correct?y/n\n" + customer);
+                }, () -> {
+                    System.out.println("Customer with " + customerPassport + "is not within our database.");
+                });
+    }
+
     //POST REQUEST
     public Customer addNewCustomer(Customer newCustomer){
        return customerRepositoryPostgres.save(newCustomer);
