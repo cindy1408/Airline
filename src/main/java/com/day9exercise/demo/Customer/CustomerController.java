@@ -2,7 +2,10 @@ package com.day9exercise.demo.Customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequestMapping("api/customers")
@@ -20,8 +23,8 @@ public record CustomerController(CustomerService customerService) {
     }
 
     @GetMapping(path = "/customer")
-    public void requestedCustomer(String customerPassport) {
-        customerService.requestedCustomer(customerPassport);
+    public Optional<Customer> requestedCustomer(String customerPassport) {
+        return customerService.requestedCustomer(customerPassport);
     }
 
     @GetMapping(path = "/greetCustomer")
@@ -29,7 +32,9 @@ public record CustomerController(CustomerService customerService) {
         customerService.greetCustomer(customerPassport);
     }
 
-    @PostMapping
+
+
+        @PostMapping
     public Customer addNewCustomer(Customer newCustomer) {
         return customerService.addNewCustomer(newCustomer);
     }

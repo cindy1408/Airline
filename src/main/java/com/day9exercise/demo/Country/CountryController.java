@@ -1,12 +1,10 @@
 package com.day9exercise.demo.Country;
 
-import com.day9exercise.demo.Customer.Customer;
-import com.day9exercise.demo.Customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.Optional;
 
 @RequestMapping("api/country")
 @RestController
@@ -22,9 +20,10 @@ public record CountryController(CountryService countryService) {
     }
 
     @GetMapping("/country")
-    public void requestedCountry(int countryId){
-        countryService.requestedCountry(countryId);
+    public Optional<Country> requestedCountry(int countryId){
+        return countryService.requestedCountry(countryId);
     }
+
 
     @PostMapping
     public void insertNewCountry(Country newCountry){

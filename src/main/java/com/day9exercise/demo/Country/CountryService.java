@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Service
@@ -22,13 +23,8 @@ public class CountryService {
     }
 
     //GET REQUEST
-    public void requestedCountry(int countryId){
-        countryRepositoryPostgres.findById(countryId)
-                .ifPresentOrElse(country -> {
-                    System.out.println(country);
-                }, () -> {
-                    System.out.println("The country id does not exist within our system.");
-                });
+    public Optional<Country> requestedCountry(int countryId){
+        return countryRepositoryPostgres.findById(countryId);
     }
 
     //POST REQUEST

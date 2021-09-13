@@ -47,14 +47,14 @@ public class FlightService {
                         });
     }
 
-    public void deleteFlightByFlightNumber(String flightNumber){
-        flightRepositoryPostgres.findFlightByFlightNumber(flightNumber);
+    public void deleteCustomerFlightByFlightNumber(String customerFlightNumber){
+        flightRepositoryPostgres.findFlightByCustomerFlightNumber(customerFlightNumber);
     }
 
     Flight doesFlightExist(String flightNumber){
         return FlightDataAccess.getListFlights()
                 .stream()
-                .filter(flight -> flight.getFlightNumber() == flightNumber)
+                .filter(flight -> flight.getCustomerFlightNumber() == flightNumber)
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Flight cannot be found"));
     }
