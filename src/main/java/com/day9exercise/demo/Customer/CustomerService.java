@@ -25,14 +25,10 @@ public class CustomerService {
         return customerRepositoryPostgres.findAll();
     }
 
-    public void requestedCustomer(String customerPassport){
-        customerRepositoryPostgres.findCustomerByPassport(customerPassport)
-                .ifPresentOrElse(customer -> {
-                    System.out.println(customer);
-                }, () -> {
-                    System.out.println("Customer with " + customerPassport + "is not within our database.");
-                });
+    public Optional<Customer> requestedCustomer(String customerPassport) {
+        return customerRepositoryPostgres.findCustomerByPassport(customerPassport);
     }
+
 
     public void greetCustomer(String customerPassport){
         customerRepositoryPostgres.findCustomerByPassport(customerPassport)
@@ -42,6 +38,7 @@ public class CustomerService {
                     System.out.println("Customer with " + customerPassport + "is not within our database.");
                 });
     }
+
 
     //POST REQUEST
     public Customer addNewCustomer(Customer newCustomer){

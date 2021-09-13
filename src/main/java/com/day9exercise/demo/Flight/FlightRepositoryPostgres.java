@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface FlightRepositoryPostgres extends JpaRepository<Flight, Integer> {
     Optional<Flight> findFlightByCountryId(int countryId);
-    Optional<Flight> findFlightByFlightNumber(String flightNumber);
+    Optional<Flight> findFlightByCustomerFlightNumber(String flightNumber);
 }
