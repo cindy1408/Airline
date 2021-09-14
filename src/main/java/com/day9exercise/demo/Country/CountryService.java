@@ -1,5 +1,6 @@
 package com.day9exercise.demo.Country;
 
+import com.day9exercise.demo.Flight.FlightRepositoryPostgres;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,13 @@ import java.util.Scanner;
 @Service
 public class CountryService {
     private final CountryRepositoryPostgres countryRepositoryPostgres;
+    private final FlightRepositoryPostgres flightRepositoryPostgres;
     Scanner scanner = new Scanner(System.in);
 
     @Autowired
-    public CountryService(CountryRepositoryPostgres countryRepositoryPostgres) {
+    public CountryService(CountryRepositoryPostgres countryRepositoryPostgres, FlightRepositoryPostgres flightRepositoryPostgres) {
         this.countryRepositoryPostgres = countryRepositoryPostgres;
+        this.flightRepositoryPostgres = flightRepositoryPostgres;
     }
 
     //GET REQUEST
@@ -131,14 +134,16 @@ public class CountryService {
                 .ifPresentOrElse(country -> {
                     System.out.println("Are you sure you want to delete " + country + "?");
                     String ans = scanner.nextLine();
-                    if(ans.toLowerCase().trim().equals("y")){
-                        countryRepositoryPostgres.delete(country);
-                        System.out.println(country + " has been successfully deleted.");
-                    } else {
-                        System.out.println(country + " has not been deleted.");
+                    if (ans.toLowerCase().trim().equals("y")) {
+                        if (flightRepositoryPostgres.findAllByCountryId(countryId).size() == 0) {
+                            countryRepositoryPostgres.delete(country);
+                            System.out.println(country + " has been successfully deleted.");
+                        } else {
+                            System.out.println("Cannot delete country as it is tied to active flights.");
+                        }
                     }
                 }, () -> {
-                    System.out.println("Country id is not registered in our system");
+                    System.out.println("Cannot find country id in our database.");
                 });
     }
 }

@@ -11,5 +11,6 @@ public interface FlightRepositoryPostgres extends JpaRepository<Flight, Integer>
     Optional<Flight> findFlightByCustomerFlightNumber(String flightNumber);
     Optional<Flight> findFlightByCustomersId(int customersId);
     List<Flight> findAllByCustomersId(int customersId);
+    List<Flight> findAllByCountryId(int countryId);
     void deleteByCustomerFlightNumber(String customerFlightNumber);
 }

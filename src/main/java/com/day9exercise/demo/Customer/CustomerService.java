@@ -3,6 +3,7 @@ package com.day9exercise.demo.Customer;
 import com.day9exercise.demo.Flight.Flight;
 import com.day9exercise.demo.Flight.FlightRepositoryPostgres;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -119,8 +120,12 @@ public class CustomerService {
     public void deleteCustomer(String customerPassport){
         customerRepositoryPostgres.findCustomerByPassport(customerPassport)
                 .ifPresentOrElse(findCustomer -> {
-                    customerRepositoryPostgres.delete(findCustomer);
-                    System.out.println("Customer with " + customerPassport + " has been successfully deleted.");
+                    if(flightRepositoryPostgres.findAllByCustomersId(findCustomer.getId()).size() == 0){
+                        customerRepositoryPostgres.delete(findCustomer);
+                    } else {
+                        System.out.println("Customer with passport " + findCustomer.getPassport() + " cannot be deleted as they still have flights.\nTo delete customer, flights associated to them must be cancelled.");
+                        System.out.println(flightRepositoryPostgres.findFlightByCustomersId(findCustomer.getId()));
+                    }
                 }, () -> {
                     System.out.println("Customer with passport number " + customerPassport + " does not exist");
                 });
