@@ -1,31 +1,53 @@
 package com.day9exercise.demo.Customer;
 
+import com.day9exercise.demo.Flight.Flight;
+import com.day9exercise.demo.Flight.FlightRepositoryPostgres;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 @Service
 public class CustomerService {
 
     Scanner scanner = new Scanner(System.in);
     private final CustomerRepositoryPostgres customerRepositoryPostgres;
+    private final FlightRepositoryPostgres flightRepositoryPostgres;
 
     @Autowired
-    public CustomerService(CustomerRepositoryPostgres customerRepositoryPostgres){
+    public CustomerService(CustomerRepositoryPostgres customerRepositoryPostgres, FlightRepositoryPostgres flightRepositoryPostgres){
 
         this.customerRepositoryPostgres = customerRepositoryPostgres;
+        this.flightRepositoryPostgres = flightRepositoryPostgres;
     }
 
     //GET REQUEST
     public List<Customer> getFullListCustomer(){
+        Iterator iterator = customerRepositoryPostgres.findAll().listIterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
         return customerRepositoryPostgres.findAll();
     }
 
     public Optional<Customer> requestedCustomer(String customerPassport) {
+        customerRepositoryPostgres.findCustomerByPassport(customerPassport)
+                .ifPresentOrElse(customer -> {
+                    System.out.println("Customer's id: " + customer.getId());
+                    System.out.println("Customer's first name: " + customer.getFirstName());
+                    System.out.println("Customer's last name: " + customer.getLastName());
+                    System.out.println("Customer's passport: " + customer.getPassport());
+                    System.out.println("Customer's date of birth: " + customer.getDob());
+                    System.out.println("Customer's age: " + customer.getAge());
+                    List<Flight> customersFlight = flightRepositoryPostgres.findAllByCustomersId(customer.getId());
+                    for(int i=0; i < customersFlight.size(); i++){
+                        System.out.println("Customer's flight number, is any: " + customersFlight.get(i).getCustomerFlightNumber());
+                    }
+
+                }, () -> {
+                    System.out.println("We were unable to find any customer linked to " + customerPassport);
+                });
+
         return customerRepositoryPostgres.findCustomerByPassport(customerPassport);
     }
 
@@ -64,7 +86,7 @@ public class CustomerService {
                                 break;
                             case 2:
                                 System.out.println("Currently the customer surname is " + requiredCustomer.getLastName());
-                                System.out.println("Please enter their updated first name");
+                                System.out.println("Please enter their updated surname");
                                 String customerUpdatedLastName = scanner.nextLine();
                                 if(customerUpdatedLastName != null){
                                     requiredCustomer.setLastName(customerUpdatedLastName);
