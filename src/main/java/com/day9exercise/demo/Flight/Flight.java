@@ -70,7 +70,7 @@ public class Flight {
         return flightId;
     }
 
-    public void setFlightId(Optional<Flight> flightId) {
+    public void setFlightId(int flightId) {
         this.flightId = flightId;
     }
 
