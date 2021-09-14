@@ -32,7 +32,35 @@ public class FlightService {
     }
 
     public void viewUserFlight(int userId){
-        flightRepositoryPostgres.findFlightByCustomersId(userId);
+        flightRepositoryPostgres.findFlightByCustomersId(userId)
+                        .ifPresentOrElse(flight -> {
+                            System.out.println("Details for customer id: " + flight.getCustomersId());
+                            System.out.println("Your flight id is: " + flight.getFlightId());
+                            System.out.println("Your flight number is: " + flight.getCustomerFlightNumber());
+                            System.out.println("Total amount of passenger: " + flight.getNumberOfPassenger());
+                            System.out.println("Return expected departure time: " + flight.getReturnTimeDeparture());
+                            System.out.println("Return expected ticket arrival time: " + flight.getReturnTimeArrival());
+                            System.out.println("Total price " + flight.getTotalPrice());
+                            customerRepositoryPostgres.findById(flight.getCustomersId())
+                                            .ifPresentOrElse(customer -> {
+                                                System.out.println("First name : " + customer.getFirstName());
+                                                System.out.println("Last name: " + customer.getLastName());
+                                                System.out.println("Date of birth: " + customer.getDob());
+                                                System.out.println("Passport number: " + customer.getPassport());
+                                            }, () -> {
+                                                System.out.println("There was an issue finding your customer id in our system.");
+                                            });
+                            countryRepositoryPostgres.findById(flight.getCountryId())
+                                    .ifPresentOrElse(country -> {
+                                        System.out.println("Destination: " + country.getName());
+                                        System.out.println("Expected Departure time: " + country.getTimeDeparture());
+                                        System.out.println("Expected Arrival time: " + country.getTimeArrival());
+                                    }, () -> {
+                                        System.out.println("Sorry we could not find your country id");
+                                    });
+                        }, () -> {
+                            System.out.println("Sorry we are unable to find your user id.");
+                        });
     }
 
     public void updateFlight(String passport, int customerFlightId){

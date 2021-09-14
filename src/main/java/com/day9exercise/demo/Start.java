@@ -24,6 +24,8 @@ public class Start {
         String input = scanner.nextLine();
         if(input.toLowerCase().trim().equals("y")){
             employeeSection(customerController, countryController, employeeController, flightController);
+        } else {
+            System.exit(0);
         }
     }
 
@@ -100,7 +102,7 @@ public class Start {
                 int estimatedDuration = scanner.nextInt();
                 System.out.println("Please enter the price");
                 double price = scanner.nextInt();
-                System.out.println("Please enter the date of flight in format yyy-mm-ddTHH:MM");
+                System.out.println("Please enter the date of flight in format yyyy-mm-ddTHH:MM");
                 scanner.nextLine();
                 String dateTime = scanner.nextLine();
                 LocalDateTime arrivalDateTime = LocalDateTime.parse(dateTime);
