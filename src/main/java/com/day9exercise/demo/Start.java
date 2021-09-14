@@ -213,6 +213,7 @@ public class Start {
             case 4:
                 System.out.println("Please enter your customer id number");
                 scanner.nextLine();
+                scanner.nextLine();
                 System.out.println("Please enter the flight number you want to cancel");
                 String flightNumber = scanner.nextLine();
                 flightController.deleteFlightByCustomerFlightNumber(flightNumber);
@@ -266,7 +267,7 @@ public class Start {
     public void bookFlight (Customer newCustomer, int numberOfPassenger, String passportNumber, CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Here are the list of countries, where would you like to go?");
-        System.out.println(countryController.listAllCountries());
+        countryController.listAllCountries();
         System.out.println("Please type the id of your chosen option");
         int chosenHoliday = scanner.nextInt();
         Optional<Customer> customerDetails = customerController.requestedCustomer(passportNumber);
@@ -283,7 +284,13 @@ public class Start {
         scanner.nextLine();
         String returnTicket = scanner.nextLine();
         if(returnTicket.toLowerCase().equals("y")){
-            System.out.println("Well get that ready for you");
+            System.out.println("Please enter the date and time you want to return in this format YYYY-MM-DDTHH:MM");
+            String rawReturnTimeDate = scanner.nextLine();
+            LocalDateTime returnTimeDateDeparture = LocalDateTime.parse(rawReturnTimeDate);
+            LocalDateTime returnTimeDateArrival = returnTimeDateDeparture.plusMinutes(countryDetails.get().getEstimatedTravelMinutes());
+            returnFlights = true;
+            Flight newFlight = new Flight(countryId, customerId, returnFlights, returnTimeDateDeparture, returnTimeDateArrival, numberOfPassenger, totalPrice, customerFlightNumber);
+            flightController.addNewFlight(newFlight);
         } else {
             Flight newFlight = new Flight(countryId, customerId, returnFlights, numberOfPassenger, totalPrice, customerFlightNumber);
             flightController.addNewFlight(newFlight);

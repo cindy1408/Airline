@@ -41,7 +41,7 @@ public class CustomerService {
                     System.out.println("Customer's age: " + customer.getAge());
                     List<Flight> customersFlight = flightRepositoryPostgres.findAllByCustomersId(customer.getId());
                     for(int i=0; i < customersFlight.size(); i++){
-                        System.out.println("Customer's flight number, is any: " + customersFlight.get(i).getCustomerFlightNumber());
+                        System.out.println("Customer's flight number, if any: " + customersFlight.get(i).getCustomerFlightNumber());
                     }
 
                 }, () -> {
@@ -55,7 +55,7 @@ public class CustomerService {
     public void greetCustomer(String customerPassport){
         customerRepositoryPostgres.findCustomerByPassport(customerPassport)
                 .ifPresentOrElse(customer -> {
-                    System.out.println("Hello " + customer.getFirstName() + "!\nPlease confirm if the following details are correct?y/n\n" + customer);
+                    System.out.println("Hello " + customer.getFirstName() + "!");
                 }, () -> {
                     System.out.println("Customer with " + customerPassport + "is not within our database.");
                 });

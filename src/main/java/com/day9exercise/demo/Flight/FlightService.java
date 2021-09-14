@@ -5,6 +5,7 @@ import com.day9exercise.demo.Customer.CustomerRepositoryPostgres;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -23,7 +24,13 @@ public class FlightService {
         this.customerRepositoryPostgres = customerRepositoryPostgres;
     }
 
-    public List<Flight> getListFlights(){return flightRepositoryPostgres.findAll();}
+    public List<Flight> getListFlights(){
+        Iterator flight = flightRepositoryPostgres.findAll().iterator();
+        while(flight.hasNext()){
+            System.out.println(flight.next());
+        }
+        return flightRepositoryPostgres.findAll();
+    }
 
     public Optional<Flight> listCountryFlights(int countryId){return flightRepositoryPostgres.findFlightByCountryId(countryId);}
 
@@ -92,14 +99,13 @@ public class FlightService {
     }
 
     public void deleteCustomerFlightByFlightNumber(String customerFlightNumber){
-        flightRepositoryPostgres.findFlightByCustomerFlightNumber(customerFlightNumber);
+        flightRepositoryPostgres.findFlightByCustomerFlightNumber(customerFlightNumber)
+                .ifPresentOrElse(flight -> {
+                    flightRepositoryPostgres.delete(flight);
+                    System.out.println("Your flight has been successfully cancelled");
+                }, () -> {
+                    System.out.println("We cannot find you flight number in our database");
+                });
     }
 
-    Flight doesFlightExist(String flightNumber){
-        return FlightDataAccess.getListFlights()
-                .stream()
-                .filter(flight -> flight.getCustomerFlightNumber() == flightNumber)
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Flight cannot be found"));
-    }
 }
