@@ -3,7 +3,9 @@ package com.day9exercise.demo.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.HTMLDocument;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -20,6 +22,10 @@ public class CountryService {
 
     //GET REQUEST
     public List<Country> getAllCountries(){
+        Iterator country = countryRepositoryPostgres.findAll().iterator();
+        while(country.hasNext()){
+            System.out.println(country.next());
+        }
         return countryRepositoryPostgres.findAll();
     }
 

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity(name = "Flight")
 @Table(name = "flight")
@@ -69,7 +70,7 @@ public class Flight {
         return flightId;
     }
 
-    public void setFlightId(int flightId) {
+    public void setFlightId(Optional<Flight> flightId) {
         this.flightId = flightId;
     }
 
