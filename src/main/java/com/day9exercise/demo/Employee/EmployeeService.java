@@ -3,6 +3,7 @@ package com.day9exercise.demo.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,6 +20,11 @@ public class EmployeeService {
 
     //GET REQUEST
     public List<Employee> employeeFullList(){
+        Iterator employee = employeeRepositoryPostgres.findAll()
+                .iterator();
+        while (employee.hasNext()){
+            System.out.println(employee.next());
+        }
         return employeeRepositoryPostgres.findAll();
     }
 
@@ -55,8 +61,11 @@ public class EmployeeService {
                                 String updatedUsername = scanner.nextLine();
                                 if(updatedUsername != null){
                                     employee.setUsername(updatedUsername);
-                                    System.out.println("Your details has been updated.");
+                                    employeeRepositoryPostgres.save(employee);
+                                    System.out.println("Your userName has been updated to " + employee.getUsername());
                                     System.out.println(employee);
+                                } else {
+                                    System.out.println("Your username cannot be null.");
                                 }
                             }
                             break;
@@ -68,8 +77,11 @@ public class EmployeeService {
                                 String updatedPassword = scanner.nextLine();
                                 if(updatedPassword != null){
                                     employee.setPassword(updatedPassword);
-                                    System.out.println("Your details has been updated.");
+                                    employeeRepositoryPostgres.save(employee);
+                                    System.out.println("Your password has been updated to: " + employee.getPassword());
                                     System.out.println(employee);
+                                } else {
+                                    System.out.println("Password cannot be null");
                                 }
                             }
                             break;
@@ -81,8 +93,11 @@ public class EmployeeService {
                                 String updatedFirstName = scanner.nextLine();
                                 if(updatedFirstName != null){
                                     employee.setEmployeeFirstName(updatedFirstName);
-                                    System.out.println("Your details has been updated.");
+                                    employeeRepositoryPostgres.save(employee);
+                                    System.out.println("Your first name has been updated: " + employee.getEmployeeFirstName());
                                     System.out.println(employee);
+                                } else {
+                                    System.out.println("Your first name cannot be null");
                                 }
                             }
                             break;
@@ -94,29 +109,23 @@ public class EmployeeService {
                                 String updatedLastName = scanner.nextLine();
                                 if(updatedLastName != null){
                                     employee.setEmployeeLastName(updatedLastName);
-                                    System.out.println("Your details has been updated.");
+                                    employeeRepositoryPostgres.save(employee);
+                                    System.out.println("Your surname has been updated to: " + employee.getEmployeeLastName());
                                     System.out.println(employee);
+                                } else {
+                                    System.out.println("Your surname cannot be null");
                                 }
                             }
                             break;
                         case 5:
-                            System.out.println("Your current surname is " + employee.isCurrentEmployee() + "\nDo you want to change it? y/n");
+                            System.out.println("Your current employee status is " + employee.isCurrentEmployee() + "\nDo you want to change it? y/n");
                             String employInput = scanner.nextLine();
                             if(employInput.toLowerCase().trim().equals("y")){
-                                System.out.println("Are you currently working here? y/n");
-                                String updatedCurrentEmployee = scanner.nextLine();
-                                boolean currentEmployee = false;
-                                if(updatedCurrentEmployee.toLowerCase().trim().equals("y")){
-                                    currentEmployee = true;
-                                    employee.setCurrentEmployee(currentEmployee);
-                                    System.out.println("Your details has been updated.");
-                                    System.out.println(employee);
-                                } else {
-                                    currentEmployee = false;
-                                    employee.setCurrentEmployee(currentEmployee);
-                                    System.out.println("Your datils has been updated.");
-                                    System.out.println(employee);
-                                }
+                                boolean b = employee.isCurrentEmployee() ? false : true;
+                                employee.setCurrentEmployee(b);
+                                employeeRepositoryPostgres.save(employee);
+                                System.out.println(employee);
+                                System.out.println("Your employee status has been updated. Thank you.");
                             }
                             break;
                     }

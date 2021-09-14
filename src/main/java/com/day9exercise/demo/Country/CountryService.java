@@ -3,6 +3,7 @@ package com.day9exercise.demo.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -24,6 +25,18 @@ public class CountryService {
 
     //GET REQUEST
     public Optional<Country> requestedCountry(int countryId){
+        countryRepositoryPostgres.findById(countryId)
+                .ifPresentOrElse(country -> {
+                    System.out.println("The following details are for country id: " + country.getId());
+                    System.out.println("Name: " + country.getName());
+                    System.out.println("Estimated travel time: " + country.getEstimatedTravelMinutes());
+                    System.out.println("Departure time: " + country.getTimeDeparture());
+                    System.out.println("Arrival time: " + country.getTimeArrival());
+                    System.out.println("Price per person: " +country.getPrice());
+                    System.out.println("Flight number: " + country.getFlightNumber());
+                }, () -> {
+                    System.out.println("We cannot find the country id you have entered");
+                });
         return countryRepositoryPostgres.findById(countryId);
     }
 
@@ -38,9 +51,9 @@ public class CountryService {
                 .ifPresentOrElse(country -> {
                     switch(requestedUpdate){
                         case 1:
-                            System.out.println("Current Country name is " + country.getName() + "\nwould you like to change it?y/n");
-                            String ans = scanner.nextLine();
-                            if(ans.toLowerCase().trim().equals("y")){
+                            System.out.println("Current Country name is " + country.getName() + "\nwould you like to change it? y/n");
+                            String ans = scanner.nextLine().toLowerCase().trim();
+                            if(ans.equals("y")){
                                 System.out.println("Please enter the updated name of the country");
                                 String updatedName = scanner.nextLine();
                                 country.setName(updatedName);
@@ -68,6 +81,34 @@ public class CountryService {
                                 country.setPrice(updatedPrice);
                                 countryRepositoryPostgres.save(country);
                                 System.out.println("Thank you, the price has been updated to " + country.getPrice());
+                            }
+                            break;
+                        case 4:
+                            //Change flight number
+                            System.out.println("The current flight number is " + country.getFlightNumber() + "\nWould you like to change it? y/n");
+                            String userInputs = scanner.nextLine();
+                            if(userInputs.toLowerCase().trim().equals("y")){
+                                System.out.println("Please enter the updated Flight number");
+                                String updatedFlightNumber = scanner.nextLine();
+                                country.setFlightNumber(updatedFlightNumber);
+                                countryRepositoryPostgres.save(country);
+                                System.out.println("Thank you, the flight number has been updated to " + country.getFlightNumber());
+                            }
+                            break;
+                        case 5:
+                            //Change time departure
+                            System.out.println("WARNING - changing the departure time will also change the arrival time!");
+                            System.out.println("The current time and date departure is " + country.getTimeDeparture() + "\nWould you like to change it? y/n");
+                            String userAns = scanner.nextLine();
+                            if(userAns.toLowerCase().trim().equals("y")){
+                                System.out.println("Please enter the updated date and time for this flight in YYYY-MM-DDTHH:MM");
+                                String rawUpdatedLocalDateTime = scanner.nextLine();
+                                LocalDateTime updatedLocalDateTime = LocalDateTime.parse(rawUpdatedLocalDateTime);
+                                country.setTimeDeparture(updatedLocalDateTime);
+                                country.setTimeArrival(updatedLocalDateTime);
+                                countryRepositoryPostgres.save(country);
+                                System.out.println("Thank you, the Departure Date and time has been updated to " + country.getTimeDeparture());
+                                System.out.println("The Arrival Date and time has been updated accordingly to " + country.getTimeArrival());
                             }
                             break;
                         default:

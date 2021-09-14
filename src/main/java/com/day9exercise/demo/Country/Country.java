@@ -73,7 +73,7 @@ public class Country {
         return estimatedTravelMinutes;
     }
 
-    public void setEstimatedTravelMinutes(int estimatedTravel) {
+    public void setEstimatedTravelMinutes(int estimatedTravelMinutes) {
         this.estimatedTravelMinutes = estimatedTravelMinutes;
     }
     public double getPrice(){
@@ -87,16 +87,15 @@ public class Country {
         return timeArrival;
     }
 
-    public void setTimeArrival(LocalDateTime timeArrival) {
-        this.timeArrival = timeArrival;
+    public void setTimeArrival(LocalDateTime timeDeparture) {
+        this.timeArrival = timeDeparture.plusMinutes(this.estimatedTravelMinutes);
     }
 
     public LocalDateTime getTimeDeparture() {
         return timeDeparture;
     }
 
-    public void setTimeDeparture(LocalDateTime timeArrival, int estimatedTravelMinutes) {
-        LocalDateTime timeDeparture = timeArrival.plusMinutes(estimatedTravelMinutes);
+    public void setTimeDeparture(LocalDateTime timeDeparture) {
         this.timeDeparture = timeDeparture;
     }
 
@@ -132,4 +131,5 @@ public class Country {
                 ", timeArrival=" + timeArrival +
                 '}';
     }
+
 }
