@@ -13,19 +13,15 @@ public record FlightController(FlightService flightService) {
     @Autowired
     public FlightController {
     }
-    @GetMapping
+
+    @GetMapping("/list")
     public List<Flight> getListFlights(){
         return flightService.getListFlights();
     }
 
-    @GetMapping("/countries")
-    public Optional<Flight> listCountryFlights(int countryId){
-        return flightService.listCountryFlights(countryId);
-    }
-
     @GetMapping("/userId")
-    public void viewUserFlight(int userId){
-        flightService.viewUserFlight(userId);
+    public void viewCustomerFlight(int userId){
+        flightService.viewCustomerFlight(userId);
     }
 
     @PostMapping
@@ -34,19 +30,13 @@ public record FlightController(FlightService flightService) {
     }
 
     @PutMapping
-    public void updatedFlight(String passport, int customerFlightId){
-        flightService.updateFlight(passport, customerFlightId);
-    }
-
-
-    @DeleteMapping
-    public void deleteFlight(int flightId){
-        flightService.deleteFlight(flightId);
+    public void updatedFlight(int customerFlightId){
+        flightService.updateFlight(customerFlightId);
     }
 
     @DeleteMapping("/byCustomerFlightNumber")
-    public void deleteFlightByCustomerFlightNumber(String customerFlightNumber){
-        flightService.deleteCustomerFlightByFlightNumber(customerFlightNumber);
+    public void deleteFlightByCustomerFlightNumber(int customerId, String customerFlightNumber){
+        flightService.deleteCustomerFlightByFlightNumber(customerId, customerFlightNumber);
     }
 
 }

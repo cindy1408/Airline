@@ -1,5 +1,4 @@
 package com.day9exercise.demo.Country;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -44,10 +43,6 @@ public class Country {
         this.timeArrival = timeArrival;
         this.timeDeparture = timeDeparture;
         this.flightNumber = flightNumber;
-    }
-
-    public Country(String name) {
-        this.name = name;
     }
 
     public Country() {

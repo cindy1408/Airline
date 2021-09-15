@@ -24,7 +24,6 @@ public record CountryController(CountryService countryService) {
         return countryService.requestedCountry(countryId);
     }
 
-
     @PostMapping
     public void insertNewCountry(Country newCountry){
         countryService.addNewCountry(newCountry);
