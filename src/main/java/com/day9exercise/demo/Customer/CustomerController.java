@@ -2,9 +2,7 @@ package com.day9exercise.demo.Customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 import java.util.Optional;
-
 
 @RequestMapping("api/customers")
 @RestController
@@ -15,9 +13,8 @@ public record CustomerController(CustomerService customerService) {
     }
 
     @GetMapping
-    public List<Customer> listAllCustomers() {
-        System.out.println(customerService.getFullListCustomer());
-        return customerService.getFullListCustomer();
+    public void listAllCustomers() {
+        customerService.getFullListCustomer();
     }
 
     @GetMapping(path = "/customer")
@@ -31,17 +28,16 @@ public record CustomerController(CustomerService customerService) {
     }
 
 
-
-        @PostMapping
-    public Customer addNewCustomer(Customer newCustomer) {
-        return customerService.addNewCustomer(newCustomer);
+    @PostMapping
+    public void addNewCustomer(Customer newCustomer) {
+        customerService.addNewCustomer(newCustomer);
     }
+
 
     @PutMapping
     public void updateCustomer(int customerId, int customerUpdateRequired){
-        customerService().updateCustomer(customerId, customerUpdateRequired);
+        customerService.updateCustomer(customerId, customerUpdateRequired);
     }
-
 
     @DeleteMapping
     public void deleteCustomer(String customerPassport){

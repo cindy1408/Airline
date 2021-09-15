@@ -18,9 +18,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Start {
 
+    public static final String Y = "\033[1;93m";
+
     public void restartEmployeeSection(CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Is there anything else you would like to do?");
+        System.out.println(Y + "Is there anything else you would like to do?");
         String input = scanner.nextLine();
         if(input.toLowerCase().trim().equals("y")){
             employeeSection(customerController, countryController, employeeController, flightController);
@@ -42,7 +44,7 @@ public class Start {
 
     public void start(CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Sign in as Employee or Customer?\n1. Employee\n2. Customer");
+        System.out.println(Y +"Sign in as Employee or Customer?\n1. Employee\n2. Customer");
         int input = scanner.nextInt();
         if(input == 1){
             // EMPLOYEE SECTION
@@ -82,39 +84,39 @@ public class Start {
         Scanner scanner = new Scanner(System.in);
             System.out.println("\nWhat would you like to do?\n1. Search customer by passport?\n2. Delete customer by passport?\n3. Amend customer details\n4. View full list of customers\n5. Add new country flight destination\n6. Delete country from list\n7. Update country\n8. Find country details by country id\n9. Add new employee\n10. Employees full list\n11. Update current employees\n12. Full list of countries");
             int userInput = scanner.nextInt();
-        switch (userInput){
-            case 1:
+        switch (userInput) {
+            case 1 -> {
                 System.out.println("Please enter the customer passport number");
                 scanner.nextLine();
                 String customerPassport = scanner.nextLine();
                 customerController.requestedCustomer(customerPassport);
-                break;
-            case 2:
+                restartEmployeeSection(customerController, countryController, employeeController, flightController);
+            }
+            case 2 -> {
                 System.out.println("Please enter the customer passport number");
                 scanner.nextLine();
                 String customerPassportDelete = scanner.nextLine().trim();
                 Optional<Customer> deleteCustomer = customerController.requestedCustomer(customerPassportDelete);
                 System.out.println("Are you sure you want to delete: " + deleteCustomer);
                 String customerInput = scanner.nextLine().toLowerCase().trim();
-                if(customerInput.equals("y")){
+                if (customerInput.equals("y")) {
                     customerController.deleteCustomer(customerPassportDelete);
                 }
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 System.out.println("Please type in the customer id number");
                 int customerId = scanner.nextInt();
                 System.out.println("Please type the required customer information that needs to be updated.\n1. first name\n2. surname\n3. passport number");
                 int updateInfo = scanner.nextInt();
                 customerController.updateCustomer(customerId, updateInfo);
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 4:
+            }
+            case 4 -> {
                 customerController.listAllCustomers();
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 5:
-                System.out.println("You would like to add a new country destination");
+            }
+            case 5 -> {
                 System.out.println("Please enter the name of the new Country");
                 scanner.nextLine();
                 String countryName = scanner.nextLine();
@@ -131,21 +133,22 @@ public class Start {
                 String flightNumber = scanner.nextLine();
                 Country newCountry = new Country(countryName, estimatedDuration, price, arrivalDateTime, departureDateTime, flightNumber);
                 countryController.insertNewCountry(newCountry);
+                System.out.println("You have inserted" + newCountry);
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 6:
+            }
+            case 6 -> {
                 System.out.println("Please enter the country id you want to delete from the system");
                 int countryId = scanner.nextInt();
                 countryController.deleteCountry(countryId);
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 7:
+            }
+            case 7 -> {
                 System.out.println("Please enter the country id you want to update");
                 int updateCountry = scanner.nextInt();
                 System.out.println("Is this the specific country you want to update?\n" + countryController.requestedCountry(updateCountry));
                 scanner.nextLine();
                 String userAnswer = scanner.nextLine().toLowerCase().trim();
-                if(userAnswer.equals("y")){
+                if (userAnswer.equals("y")) {
                     System.out.println("which of the following do you need to update?\n1. Country name?\n2. Estimated Travel?\n3. Price\n4. Flight Number\n5. Time and Date departure\n");
                     int requestedUpdate = scanner.nextInt();
                     countryController.updateCountry(updateCountry, requestedUpdate);
@@ -153,36 +156,35 @@ public class Start {
                 } else {
                     restartEmployeeSection(customerController, countryController, employeeController, flightController);
                 }
-                break;
-            case 8:
+            }
+            case 8 -> {
                 System.out.println("Please enter the country id");
                 scanner.nextLine();
                 int requestedCountryId = scanner.nextInt();
                 countryController.requestedCountry(requestedCountryId);
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 9:
+            }
+            case 9 -> {
                 registeringEmployee(employeeController);
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 10:
+            }
+            case 10 -> {
                 employeeController.employeesFullList();
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 11:
+            }
+            case 11 -> {
                 System.out.println("Please enter your employee id");
                 int employeeId = scanner.nextInt();
                 System.out.println("Please enter whether you want to update\n1. Username\n2. Password\n3. First name\n4. Surname\n5. Current Employee");
                 int update = scanner.nextInt();
                 employeeController.updateCurrentEmployees(employeeId, update);
                 restartEmployeeSection(customerController, countryController, employeeController, flightController);
-                break;
-            case 12:
+            }
+            case 12 -> {
                 System.out.println("Here are the full list of countries");
                 countryController.listAllCountries();
-                break;
-            default:
-                employeeSection(customerController, countryController, employeeController, flightController);
+            }
+            default -> employeeSection(customerController, countryController, employeeController, flightController);
         }
     }
 
@@ -192,14 +194,13 @@ public class Start {
     public void customerSection(CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController){
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please select the following options.\n1. View a flight\n2. Book a flight\n3.Update a flight\n4. Cancel a flight");
+        System.out.println("Please select the following options.\n1. View a flight\n2. Book a flight\n3. Update a flight\n4. Cancel a flight");
         int userOption = scanner.nextInt();
         switch (userOption) {
             case 1 -> {
                 System.out.println("Please enter your customer id");
                 int customerId = scanner.nextInt();
-                flightController.viewUserFlight(customerId);
-                System.out.println();
+                flightController.viewCustomerFlight(customerId);
                 restart(customerController, countryController, employeeController, flightController);
             }
             case 2 -> bookingFlightAndCheckCustomer(customerController, countryController, employeeController, flightController);
@@ -209,16 +210,17 @@ public class Start {
                 String passport = scanner.nextLine();
                 customerController.requestedCustomer(passport);
                 System.out.println("Please enter your flight id");
-                int customerflightId = scanner.nextInt();
-                flightController.updatedFlight(passport, customerflightId);
+                int customerFlightId = scanner.nextInt();
+                flightController.updatedFlight(customerFlightId);
+
             }
             case 4 -> {
                 System.out.println("Please enter your customer id number");
-                scanner.nextLine();
-                scanner.nextLine();
+                int customerId = scanner.nextInt();
                 System.out.println("Please enter the flight number you want to cancel");
+                scanner.nextLine();
                 String flightNumber = scanner.nextLine();
-                flightController.deleteFlightByCustomerFlightNumber(flightNumber);
+                flightController.deleteFlightByCustomerFlightNumber(customerId, flightNumber);
             }
         }
 
@@ -246,7 +248,7 @@ public class Start {
             customerController.requestedCustomer(passportNumber)
                     .ifPresentOrElse(customer -> {
                         customerController.greetCustomer(passportNumber);
-                        bookFlight(customer, numberOfPassenger, passportNumber, customerController, countryController, employeeController, flightController);
+                        bookFlight(customer, numberOfPassenger, countryController, flightController);
                     }, () -> {
                         System.out.println("Sorry, we are unable to find your passport number.");
                     });
@@ -266,11 +268,11 @@ public class Start {
             customerController.requestedCustomer(newCustomer.getPassport());
             System.out.println("Thank you for registering, your id is " + newCustomer.getId());
 
-            bookFlight(newCustomer, numberOfPassenger, passport, customerController, countryController, employeeController, flightController);
+            bookFlight(newCustomer, numberOfPassenger,countryController, flightController);
         }
     }
 
-    public void bookFlight (Customer customer, int numberOfPassenger, String passportNumber, CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController){
+    public void bookFlight (Customer customer, int numberOfPassenger, CountryController countryController,FlightController flightController){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Here are the list of countries, where would you like to go?");
         countryController.listAllCountries();
@@ -288,15 +290,22 @@ public class Start {
         scanner.nextLine();
         String returnTicket = scanner.nextLine();
         if(returnTicket.equalsIgnoreCase("y")){
-            System.out.println("Please enter the date and time you want to return in this format YYYY-MM-DDTHH:MM");
+            LocalDateTime returnDateTime1 = countryDetails.get().getTimeDeparture().plusDays(2).plusMinutes(120);
+            LocalDateTime returnDateTime2 = countryDetails.get().getTimeDeparture().plusDays(7).plusMinutes(80);
+            LocalDateTime returnDateTime3 = countryDetails.get().getTimeDeparture().plusDays(15).plusMinutes(100);
+            LocalDateTime returnDateTime4 = countryDetails.get().getTimeDeparture().plusDays(30).plusMinutes(75);
+            System.out.println("Here are the available return dates\n" + "2 days stay " + returnDateTime1 + "\n7 days stay " + returnDateTime2 + "\n15 days stay " + returnDateTime3 + "\n30 days stay " + returnDateTime4 + "\n");
+            System.out.println("Please select the available return time and dates");
             String rawReturnTimeDate = scanner.nextLine();
             LocalDateTime returnTimeDateDeparture = LocalDateTime.parse(rawReturnTimeDate);
             LocalDateTime returnTimeDateArrival = returnTimeDateDeparture.plusMinutes(countryDetails.get().getEstimatedTravelMinutes());
             Flight newFlight = new Flight(countryId, customerId, true, returnTimeDateDeparture, returnTimeDateArrival, numberOfPassenger, totalPrice, customerFlightNumber);
             flightController.addNewFlight(newFlight);
+            System.out.println("Your flight is: " + newFlight);
         } else {
             Flight newFlight = new Flight(countryId, customerId, false, numberOfPassenger, totalPrice, customerFlightNumber);
             flightController.addNewFlight(newFlight);
+            System.out.println("Your flight is: " + newFlight);
         }
     }
 
@@ -317,10 +326,7 @@ public class Start {
             String newNationalInsurance = scanner.nextLine();
             System.out.println("Are you a current employee? y/n");
             String answer = scanner.nextLine();
-            boolean currentEmployee = false;
-            if(answer.toLowerCase().trim().equals("y")){
-                currentEmployee = true;
-                }
+            boolean currentEmployee = answer.toLowerCase().trim().equals("y");
             Employee newEmployee = new Employee(newUsername, newPassword, newFirstName, newSurname, newNationalInsurance, currentEmployee);
             employeeController.insertNewEmployee(newEmployee);
             System.out.println("Thank you, your employee id is " + newEmployee.getId());
@@ -340,9 +346,7 @@ public class Start {
         boolean repeatFlightNumber = flightController.getListFlights().stream().anyMatch(flight ->
             flight.getCustomerFlightNumber().equals(customerFlightNumber)
         );
-        String checkCustomerFlightNumber = repeatFlightNumber ? findRandomSeatNumber(flightNumber, flightController) : customerFlightNumber;
-
-        return checkCustomerFlightNumber;
+        return repeatFlightNumber ? findRandomSeatNumber(flightNumber, flightController) : customerFlightNumber;
     }
 
 }

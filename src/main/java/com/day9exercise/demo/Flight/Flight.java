@@ -111,6 +111,7 @@ public class Flight {
     }
 
     public void setReturnTimeArrival(LocalDateTime returnTimeArrival) {
+
         this.returnTimeArrival = returnTimeArrival;
     }
 
