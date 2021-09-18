@@ -1,4 +1,4 @@
-# To understand the sections, structure, thought progress of this project, please go through the comments in commit history. 
+# To understand the sections, structure, thought process of this project, please go through the comments in commit history. 
 
 Airline is a backend project for bnt, it consists of Java, SpringBoot JPA Repository, Hibernate hence the use the CRUD repository and Postgres SQL was used as a database.
 Data can be manipulated through the CLI terminal. 
