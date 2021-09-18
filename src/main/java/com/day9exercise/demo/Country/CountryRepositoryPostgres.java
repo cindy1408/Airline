@@ -11,5 +11,4 @@ public interface CountryRepositoryPostgres extends JpaRepository<Country, Intege
 
     Optional<Country> findCountryByName(String countryName);
 
-
 }

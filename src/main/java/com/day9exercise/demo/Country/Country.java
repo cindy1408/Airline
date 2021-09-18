@@ -30,7 +30,6 @@ public class Country {
     @Column(name = "flight_number", nullable = false)
     private String flightNumber;
 
-
     public Country(@JsonProperty("country_name") String name,
                    @JsonProperty("estimated_travel") int estimatedTravelMinutes,
                    @JsonProperty("price") double price,

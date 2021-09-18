@@ -15,10 +15,10 @@ public class DemoApplication {
 	private static FlightController flightController;
 
 	public DemoApplication(CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController) {
-		this.customerController = customerController;
-		this.countryController = countryController;
-		this.employeeController = employeeController;
-		this.flightController = flightController;
+		DemoApplication.customerController = customerController;
+		DemoApplication.countryController = countryController;
+		DemoApplication.employeeController = employeeController;
+		DemoApplication.flightController = flightController;
 	}
 
 	public static void main(String[] args) {
