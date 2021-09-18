@@ -20,8 +20,8 @@ public record FlightController(FlightService flightService) {
     }
 
     @GetMapping("/userId")
-    public void viewCustomerFlight(int userId){
-        flightService.viewCustomerFlight(userId);
+    public void viewCustomerFlight(int customerId){
+        flightService.viewCustomerFlight(customerId);
     }
 
     @PostMapping

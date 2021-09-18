@@ -8,7 +8,6 @@ import com.day9exercise.demo.Employee.Employee;
 import com.day9exercise.demo.Employee.EmployeeController;
 import com.day9exercise.demo.Flight.Flight;
 import com.day9exercise.demo.Flight.FlightController;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -33,7 +32,7 @@ public class Start {
 
     public void restart(CustomerController customerController, CountryController countryController, EmployeeController employeeController, FlightController flightController){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Is there anything else you would like to do?");
+        System.out.println(Y + "Is there anything else you would like to do?");
         String input = scanner.nextLine();
         if(input.toLowerCase().trim().equals("y")){
             start(customerController, countryController, employeeController, flightController);
@@ -340,7 +339,7 @@ public class Start {
     public String findRandomSeatNumber(String flightNumber, FlightController flightController){
         Random r = new Random();
         char row = (char)(r.nextInt(26) + 'a');
-        int randomNumber = (int) (Math.random() * 2 + 1);
+        int randomNumber = (int) (Math.random() * 3 + 1);
         String customerFlightNumber;
         customerFlightNumber = flightNumber + " " + row + randomNumber;
         boolean repeatFlightNumber = flightController.getListFlights().stream().anyMatch(flight ->

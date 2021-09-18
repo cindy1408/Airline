@@ -3,7 +3,6 @@ package com.day9exercise.demo.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("api/country")
@@ -15,8 +14,8 @@ public record CountryController(CountryService countryService) {
 
     }
     @GetMapping
-    public List<Country> listAllCountries() {
-        return countryService.getAllCountries();
+    public void listAllCountries() {
+        countryService.getAllCountries();
     }
 
     @GetMapping("/country")

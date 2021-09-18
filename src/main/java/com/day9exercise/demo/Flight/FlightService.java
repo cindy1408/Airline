@@ -4,7 +4,6 @@ import com.day9exercise.demo.Country.CountryRepositoryPostgres;
 import com.day9exercise.demo.Customer.CustomerRepositoryPostgres;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -30,8 +29,8 @@ public class FlightService {
         flightRepositoryPostgres.save(flight);
     }
 
-    public void viewCustomerFlight(int userId){
-        customerRepositoryPostgres.findById(userId)
+    public void viewCustomerFlight(int customerId){
+        customerRepositoryPostgres.findById(customerId)
                 .ifPresentOrElse(customer -> {
                     System.out.println("First name : " + customer.getFirstName());
                     System.out.println("Last name: " + customer.getLastName());
@@ -41,9 +40,9 @@ public class FlightService {
                     System.out.println("There was an issue finding your customer id in our system.");
                 });
 
-        flightRepositoryPostgres.findAllByCustomersId(userId)
+        flightRepositoryPostgres.findAllByCustomersId(customerId)
                 .stream().allMatch(flight -> {
-                    if(flight.getCustomersId() == userId){
+                    if(flight.getCustomersId() == customerId){
                         System.out.println("Your flight id is: " + flight.getFlightId());
                         System.out.println("Your flight number is: " + flight.getCustomerFlightNumber());
                         countryRepositoryPostgres.findById(flight.getCountryId())
@@ -95,11 +94,11 @@ public class FlightService {
                                     break;
                                 case 2:
 
-                                        flight.setReturnTimeDeparture(null);
-                                        flight.setReturnTimeArrival(null);
-                                        flightRepositoryPostgres.save(flight);
-                                        System.out.println("Your flight has been updated" + flight);
-                                        break;
+                                    flight.setReturnTimeDeparture(null);
+                                    flight.setReturnTimeArrival(null);
+                                    flightRepositoryPostgres.save(flight);
+                                    System.out.println("Your flight has been updated" + flight);
+                                    break;
                                 case 3:
                                     break;
                                     default:
