@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class EmployeeService {
@@ -45,6 +46,7 @@ public class EmployeeService {
 
     //POST REQUEST
     public void addNewEmployee(Employee newEmployee){
+
         employeeRepositoryPostgres.save(newEmployee);
     }
 
