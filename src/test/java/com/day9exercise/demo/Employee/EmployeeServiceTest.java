@@ -2,6 +2,7 @@ package com.day9exercise.demo.Employee;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -78,8 +79,29 @@ class EmployeeServiceTest {
 
     @Test
     void canAddNewEmployee(){
-
+        Employee mockEmployee = new Employee("cindy1408", "password", "Cindy", "Cheung", "CHEUNG90124", true);
+        Mockito.when(employeeRepositoryPostgres.save(mockEmployee))
+                .thenReturn(mockEmployee);
+        underTest.addNewEmployee(mockEmployee);
+        ArgumentCaptor<Employee> employeeArgumentCaptor = ArgumentCaptor.forClass(Employee.class);
+        Mockito.verify(employeeRepositoryPostgres).save(employeeArgumentCaptor.capture());
+        Employee expectedEmployee = employeeArgumentCaptor.getValue();
+        assertThat(expectedEmployee).isEqualTo(mockEmployee);
     }
+
+//    @Test
+//    void canUpdateEmployeeUserName(){
+//        Employee mockEmployee = new Employee("cindy1408", "password", "Cindy", "Cheung", "CHEUNG90124", true);
+//        mockEmployee.setId(0);
+//        Employee updatedEmployee = new Employee("cindy", "password", "Cindy", "Cheung", "CHEUNG90124", true);
+//        Mockito.when(employeeRepositoryPostgres.findById(mockEmployee.getId()))
+//                        .thenReturn(Optional.of(mockEmployee))
+//                                .thenReturn(Optional.of(updatedEmployee));
+//
+//        underTest.updateCurrentEmployee(mockEmployee.getId(), 1);
+//        employeeRepositoryPostgres.save(updatedEmployee);
+//        assertThat(employeeRepositoryPostgres.save(updatedEmployee)).isEqualTo(updatedEmployee);
+//    }
 
 
 
